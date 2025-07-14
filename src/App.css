@@ -28,7 +28,10 @@
   color: #888;
 }*/
 /*Change The voice*/
-.select {
-  border: 1px solid #00b3a1;
+/*.select1 {
+  border: 2px solid #00b3a1;
   direction: rtl;
+}*/
+.select__indicator-separator {
+  display: none;
 }
