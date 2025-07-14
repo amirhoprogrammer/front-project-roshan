@@ -1,8 +1,36 @@
+import Select from "react-select";
+import { UserIcon, CogIcon } from "@heroicons/react/24/outline";
 import "../App.css";
 function ChangeTheVoice() {
+  const options = [
+    {
+      value: "user",
+      label: (
+        <div className="flex items-center">
+          <UserIcon className="w-5 h-5 mr-2 text-blue-500" />
+          <span>پروفایل کاربری</span>
+        </div>
+      ),
+    },
+    {
+      value: "settings",
+      label: (
+        <div className="flex items-center">
+          <CogIcon className="w-5 h-5 mr-2 text-green-500" />
+          <span>تنظیمات</span>
+        </div>
+      ),
+    },
+  ];
   return (
     <div className="mt-8 mb-4 flex flex-col">
-      <select name="guests" id="" className="border-2 select rounded-xl p-2 mx-6 w-24">
+      <Select
+        options={options}
+        className="basic-select"
+        classNamePrefix="select"
+        placeholder="یک گزینه انتخاب کنید..."
+      />
+      {/*<select name="guests" id="" className="border-2 select rounded-xl p-2 mx-6 w-24">
         <option value="guest" className="flex">
           <p>مهمان</p>
           <svg
@@ -24,10 +52,10 @@ function ChangeTheVoice() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-          </svg>
+  </svg>
         </option>
         <option value="guest">خروج</option>
-      </select>
+      </select>*/}
       <button>click me</button>
     </div>
   );
