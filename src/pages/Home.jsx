@@ -1,11 +1,13 @@
-import ChangeTheVoice from "./ChangeTheVoice";
+//import ChangeTheVoice from "./ChangeTheVoice";
+import Archive from "./Archive";
 function Home() {
   return (
     <div className="major flex m-0 p-0 h-screen">
       <div className="flex-1 overflow-auto">
         {/*<h1 className="text-2xl font-bold mb-4">صفحه اصلی</h1>
-        <p>این محتوی اصلی برنامه است...</p>*/}
-        <ChangeTheVoice />
+        <p>این محتوی اصلی برنامه است...</p>
+        <ChangeTheVoice />*/}
+        <Archive />
       </div>
       <div
         class="w-40 text-white p-4 flex flex-col items-center rounded-l-lg"

@@ -152,12 +152,17 @@ function ChangeTheVoice() {
         </div>
       </div>
       <div className="flex mx-84 my-5 items-start w-48">
-        <select name="language" id="" className="border-2 rounded-2xl mx-2" style={customStyles}>
+        <select
+          name="language"
+          id=""
+          className="border-2 rounded-2xl mx-2 p-1"
+          style={customStyles}
+        >
           <option value="persian">فارسی</option>
           <option value="english">انگلیسی</option>
         </select>
-        <p className="w-48" style={{ color: "#969696" }}>
-          زبان گفتار:
+        <p className="w-48 m-1" style={{ color: "#969696" }}>
+          :زبان گفتار
         </p>
       </div>
     </div>
