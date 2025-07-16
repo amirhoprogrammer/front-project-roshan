@@ -1,4 +1,5 @@
 import Select from "react-select";
+import React, { useState } from "react";
 import "../App.css";
 function Guest() {
   const options = [
@@ -74,27 +75,32 @@ function Guest() {
     },
   ];
   const customStyles = {
-    control: (provided) => ({
+    control: (provided, state) => ({
       ...provided,
       border: "2px solid #00b3a1",
       direction: "rtl",
       borderRadius: "20px",
       padding: "0px",
       backgroundColor: "white",
-      boxShadow: "none",
+      boxShadow: state.isFocused ? "0 0 0 0 #0d9488" : "none", // تغییر سایه وقتی فوکوس می‌شه
+      borderColor: state.isFocused ? "#0d9488" : "#14b8a6", // تغییر رنگ مرزی
+      borderBottomLeftRadius: state.isFocused ? "0px" : "20px",
+      borderBottomRightRadius: state.isFocused ? "0px" : "20px",
       "&:hover": {
         borderColor: "#00b3a1",
       },
     }),
     menu: (provided) => ({
       ...provided,
-      borderRadius: "20px",
+      borderBottomLeftRadius: "20px",
+      borderBottomRightRadius: "20px",
       marginTop: "0px",
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isSelected ? "#14b8a6" : "white",
+      backgroundColor: "white",
       color: state.isSelected ? "white" : "#0d9488",
+      borderRadius: "20px",
       "&:hover": {
         backgroundColor: "#e0f2f1",
       },
@@ -103,16 +109,12 @@ function Guest() {
       ...provided,
       color: "#0d9488",
     }),
-    placeholder: (provided) => ({
-      ...provided,
-      color: "#6b7280",
-    }),
   };
   return (
     <Select
       options={options}
       defaultValue={options[0]}
-      className="basic-select mx-6 w-36 "
+      className="basic-select mx-6 w-34 "
       classNamePrefix="select"
       styles={customStyles}
     />

@@ -32,9 +32,22 @@
   border: 2px solid #00b3a1;
   direction: rtl;
 }*/
+/* Guest */
 .select__indicator-separator {
   display: none;
 }
+/*.basic-select {
+  border: 2px solid #00b3a1;
+  direction: rtl;
+  bor
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+}
+*/
+/**/
 .active {
   border: 2px solid #00b3a1;
   background-color: #00ba9f;
