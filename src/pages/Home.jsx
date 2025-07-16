@@ -4,8 +4,8 @@ function Home() {
   return (
     <div className="flex m-0 p-0 h-screen">
       <div className="flex-1 overflow-auto">
-        <ChangeTheVoice />
-        {/*<Archive />*/}
+        {/*<ChangeTheVoice />*/}
+        <Archive />
       </div>
       <div
         class="w-40 text-white p-4 flex flex-col items-center rounded-l-lg"

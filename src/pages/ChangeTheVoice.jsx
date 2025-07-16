@@ -155,7 +155,7 @@ function ChangeTheVoice() {
         <select
           name="language"
           id=""
-          className="border-2 rounded-2xl mx-2 p-1 text-white"
+          className="border-2 rounded-2xl mx-2 p-1"
           style={{
             border: "2px solid #00b3a1",
             direction: "rtl",
