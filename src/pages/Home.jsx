@@ -1,14 +1,32 @@
 import ChangeTheVoice from "./ChangeTheVoice";
 import Archive from "./Archive";
+import React, { useEffect, useState } from "react";
+//style={{ backgroundColor: `${activeButton === 0 ? "#02816e" : "00B3A1"}` }}
+//style={{ backgroundColor: `${activeButton === 1 ? "#02816e" : "00B3A1"}` }}
 function Home() {
+  const [activeButton, setActiveButton] = useState(0);
+  /*function handleclick(e) {
+    const updateTag = document.getElementById(e);
+    console.log(updateTag);
+  }*/
+  /*const handleBackgroundClick = (activeButton) => {
+    const backgroundColor1 = "#02816e";
+    const backgroundColor2 = "00B3A1";
+    {
+      activeButton === 1 ? backgroundColor1 : backgroundColor2;
+    }
+    {
+      activeButton === 1 ? backgroundColor1 : backgroundColor2;
+    }
+  };*/
   return (
     <div className="flex m-0 p-0 h-screen">
       <div className="flex-1 overflow-auto">
-        <ChangeTheVoice />
-        {/*<Archive />*/}
+        {activeButton === 0 && <ChangeTheVoice />}
+        {activeButton === 1 && <Archive />}
       </div>
       <div
-        class="w-40 text-white p-4 flex flex-col items-center rounded-l-lg"
+        className="w-44 text-white p-4 flex flex-col items-center rounded-l-lg"
         style={{ backgroundColor: "#00B3A1" }}
       >
         <div className="mb-48 mt-4 flex">
@@ -17,10 +35,13 @@ function Home() {
           <div class="h-8 w-0.5 bg-white mx-1 "></div>
           <div class="h-4 w-0.5 bg-white my-2 mx-1"></div>
         </div>
-        <div className="mb-6 flex">
-          <a href="./pages/ChangeTheVoice.jsx" className="mx-2">
-            تبدیل گفتار
-          </a>
+        <button
+          className={`mb-6 flex button1 rounded-xl p-2 ${
+            activeButton === 0 ? "activeB" : "deactiveB"
+          }`}
+          onClick={() => setActiveButton(0)}
+        >
+          <span className="mx-2">تبدیل گفتار</span>
           <svg
             width="22"
             height="25"
@@ -66,11 +87,14 @@ function Home() {
               fill="white"
             />
           </svg>
-        </div>
-        <div className="mb-8 flex">
-          <a href="./pages/Archive.jsx" className="mx-2">
-            آرشیو
-          </a>
+        </button>
+        <button
+          className={`mb-8 flex button1 rounded-xl p-2 ${
+            activeButton === 1 ? "activeB" : "deactiveB"
+          }`}
+          onClick={() => setActiveButton(1)}
+        >
+          <span className="mx-2">آرشیو</span>
           <svg
             width="20"
             height="20"
@@ -88,7 +112,7 @@ function Home() {
               fill="white"
             />
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   );

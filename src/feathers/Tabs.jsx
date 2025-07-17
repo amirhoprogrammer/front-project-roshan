@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 function Tabs() {
-  /*const customPlaceHolder = () => {
-    <div>
-      
-  };*/
-
   const [activeTab, setActiveTab] = useState(0);
   const tabs = [
     {

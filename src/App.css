@@ -56,3 +56,12 @@
 .deactive {
   color: #969696;
 }
+/*.button1:hover {
+  background-color: #02816e;
+}*/
+.activeB {
+  background-color: #02816e;
+}
+.deactiveB {
+  background-color: #00b3a1;
+}
