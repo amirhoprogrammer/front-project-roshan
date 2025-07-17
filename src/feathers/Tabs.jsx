@@ -91,7 +91,7 @@ function Tabs() {
       ),
       content: (
         <div
-          className="flex flex-col rounded-2xl p-8 items-center justify-center"
+          className="flex flex-col rounded-2xl p-4 items-center justify-center"
           style={{ direction: "rtl" }}
         >
           <div className="rounded-full" style={{ backgroundColor: "#118AD3" }}>
