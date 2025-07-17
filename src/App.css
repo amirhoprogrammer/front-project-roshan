@@ -51,6 +51,7 @@
 .active {
   border: 2px solid #00b3a1;
   background-color: #00ba9f;
+  color: white;
 }
 .deactive {
   color: #969696;

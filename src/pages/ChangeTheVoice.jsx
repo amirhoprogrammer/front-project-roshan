@@ -14,14 +14,11 @@ function ChangeTheVoice() {
       >
         تبدیل گفتار به متن
       </h2>
-      <p
-        className="flex items-center justify-center my-2 mx-88 text-center"
-        style={{ color: "#969696" }}
-      >
+      <p className="my-2 mx-88 p-0" style={{ textAlign: "center", color: "#969696" }}>
         آوا با استفاده از هزاران ساعت گفتار با صدای افراد مختلف، زبان فارسی را یاد گرفته است
         می‌تواند متن صحبت‌ها را بنویسد
       </p>
-      <div className="p-0 max-w-md mx-auto mt-4">
+      <div className="p-0 mx-76 mt-10">
         <Tabs />
       </div>
       <div className="flex mx-84 my-5 items-start w-48">
