@@ -5,20 +5,6 @@ import React, { useEffect, useState } from "react";
 //style={{ backgroundColor: `${activeButton === 1 ? "#02816e" : "00B3A1"}` }}
 function Home() {
   const [activeButton, setActiveButton] = useState(0);
-  /*function handleclick(e) {
-    const updateTag = document.getElementById(e);
-    console.log(updateTag);
-  }*/
-  /*const handleBackgroundClick = (activeButton) => {
-    const backgroundColor1 = "#02816e";
-    const backgroundColor2 = "00B3A1";
-    {
-      activeButton === 1 ? backgroundColor1 : backgroundColor2;
-    }
-    {
-      activeButton === 1 ? backgroundColor1 : backgroundColor2;
-    }
-  };*/
   return (
     <div className="flex m-0 p-0 h-screen">
       <div className="flex-1 overflow-auto">
