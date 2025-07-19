@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "4bd3db89-47b9-44b4-a8d2-95ee8ae55e47",
+		"name": "Harf",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27633894"
+	},
+	"item": [
+		{
+			"name": "Transcribe audio & video url",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a85d08400c622b50b18b61e239b9903645297196",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media_urls\": [\"https://s-v4.tamasha.com/statics/videos_download/cf/7f/jzgWN_cf7ffa2fbdcc04590d3cd449e5b7e2382be65d6c_n_240.mp4\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://harf.roshan-ai.ir/api/transcribe_files/",
+					"protocol": "https",
+					"host": [
+						"harf",
+						"roshan-ai",
+						"ir"
+					],
+					"path": [
+						"api",
+						"transcribe_files",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list requests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a85d08400c622b50b18b61e239b9903645297196",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://harf.roshan-ai.ir/api/requests/",
+					"protocol": "https",
+					"host": [
+						"harf",
+						"roshan-ai",
+						"ir"
+					],
+					"path": [
+						"api",
+						"requests",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "media image",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token d6e0206d421c91200d2753c24892bb95d365e74c",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://harf.roshan-ai.ir/media_image/https://s-v4.tamasha.com/statics/videos_download/cf/7f/jzgWN_cf7ffa2fbdcc04590d3cd449e5b7e2382be65d6c_n_240.mp4",
+					"protocol": "https",
+					"host": [
+						"harf",
+						"roshan-ai",
+						"ir"
+					],
+					"path": [
+						"media_image",
+						"https:",
+						"",
+						"s-v4.tamasha.com",
+						"statics",
+						"videos_download",
+						"cf",
+						"7f",
+						"jzgWN_cf7ffa2fbdcc04590d3cd449e5b7e2382be65d6c_n_240.mp4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a85d08400c622b50b18b61e239b9903645297196",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\":\" اول کاشتی\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://harf.roshan-ai.ir/api/search/",
+					"protocol": "https",
+					"host": [
+						"harf",
+						"roshan-ai",
+						"ir"
+					],
+					"path": [
+						"api",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a85d08400c622b50b18b61e239b9903645297196",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://harf.roshan-ai.ir/api/requests/2563/",
+					"protocol": "https",
+					"host": [
+						"harf",
+						"roshan-ai",
+						"ir"
+					],
+					"path": [
+						"api",
+						"requests",
+						"2563",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete request",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a85d08400c622b50b18b61e239b9903645297196",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://harf.roshan-ai.ir/api/requests/129714/",
+					"protocol": "https",
+					"host": [
+						"harf",
+						"roshan-ai",
+						"ir"
+					],
+					"path": [
+						"api",
+						"requests",
+						"129714",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
