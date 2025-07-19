@@ -5,7 +5,7 @@ import Guest from "./feathers/Guest";
 import Archive from "./pages/Archive.jsx";
 import Tabs from "./feathers/Tabs";
 import Language from "./feathers/Language";
-import UploadHome from "./feathers of upload/UploadHome";
+import UploadHome from "./feathersOfUpload/UploadHome";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
