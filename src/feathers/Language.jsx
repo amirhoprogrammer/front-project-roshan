@@ -1,10 +1,5 @@
-import { useState, React } from "react";
-import Guest from "../feathers/Guest";
-import Tabs from "../feathers/Tabs";
-import Language from "../feathers/Language";
-import "../App.css";
-function ChangeTheVoice() {
-  const [selectedValue, setSelectedValue] = useState("");
+import Select from "react-select";
+function Language() {
   const options = [
     { value: "persian", label: "فارسی" },
     { value: "english", label: "انگلیسی" },
@@ -63,23 +58,19 @@ function ChangeTheVoice() {
     ),
   };
   return (
-    <div className="mt-8 mb-4 flex flex-col">
-      <Guest />
-      <h2
-        className="flex items-center justify-center text-2xl font-bold"
-        style={{ color: "#00b3a1" }}
-      >
-        تبدیل گفتار به متن
-      </h2>
-      <p className="my-2 mx-88 p-0" style={{ textAlign: "center", color: "#969696" }}>
-        آوا با استفاده از هزاران ساعت گفتار با صدای افراد مختلف، زبان فارسی را یاد گرفته است
-        می‌تواند متن صحبت‌ها را بنویسد
+    <div className="flex mx-73 my-5 items-start w-76">
+      <Select
+        options={options}
+        defaultValue={options[0]}
+        className="basic-select mx-2 w-34 "
+        classNamePrefix="select"
+        styles={customStyles}
+        components={flashComponents}
+      />
+      <p className="w-48 my-1 mx-0" style={{ color: "#969696" }}>
+        :زبان گفتار
       </p>
-      <div className="p-0 mx-76 mt-10">
-        <Tabs />
-      </div>
-      <Language />
     </div>
   );
 }
-export default ChangeTheVoice;
+export default Language;
