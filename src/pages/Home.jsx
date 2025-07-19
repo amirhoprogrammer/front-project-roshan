@@ -31,9 +31,9 @@ function Home() {
       >
         <div className="mb-48 mt-4 flex">
           <h3 className="mx-1">آوا</h3>
-          <div class="h-4 w-0.5 bg-white my-2 mx-1"></div>
-          <div class="h-8 w-0.5 bg-white mx-1 "></div>
-          <div class="h-4 w-0.5 bg-white my-2 mx-1"></div>
+          <div className="h-4 w-0.5 bg-white my-2 mx-1"></div>
+          <div className="h-8 w-0.5 bg-white mx-1 "></div>
+          <div className="h-4 w-0.5 bg-white my-2 mx-1"></div>
         </div>
         <button
           className={`mb-6 flex button1 rounded-xl p-2 ${
