@@ -1,8 +1,10 @@
+import BasicText from "./BasicText";
+import TimeText from "./TimeText";
 function UploadHome() {
   return (
     <div className="flex flex-col p-2">
-      <div className="flex border-b-1 flex-row-reverse border-b-black py-2">
-        <div className="flex flex-row-reverse mx-2 mb-3" style={{ direction: "rtl" }}>
+      <div className="flex border-b-1 flex-row-reverse border-b-black py-2 align-middle justify-center items-center">
+        <div className="flex flex-row-reverse mx-2 my-2 py-2" style={{ direction: "rtl" }}>
           <p>متن ساده</p>
           <svg
             width="17"
@@ -38,7 +40,7 @@ function UploadHome() {
             />
           </svg>
         </div>
-        <div className="flex flex-row-reverse mx-2 mb-3" style={{ direction: "rtl" }}>
+        <div className="flex flex-row-reverse mx-2 my-2 py-2" style={{ direction: "rtl" }}>
           <p>متن زمان بندی شده</p>
           <svg
             width="17"
@@ -143,15 +145,7 @@ function UploadHome() {
           <p className="mx-2">شروع دوباره</p>
         </button>
       </div>
-      <div>
-        <p className="mx-2" style={{ direction: "rtl" }}>
-          [با][---][---] [با] و[---][---] [با][---][---][---][---] کجایی تو [خوش] می دیدی من خسته
-          شدم [ما را] [به] این [زودی] چه جوری شد [عشق شدی] به این است[---] [آخرش] سی با فکر [و] چقدر
-          [نزار می خوام] که [چشم تو] [و با رفت][---][---][---][---][---][---][---][---] سخت [آرام]
-          ولی ازت می خوام[---] بر نگردی هر کسی که به [تو] باشه[---] کاشکی تو منو [بردی] [که
-          چشمک][---] با[---][---][---][---][---] [ابو][---] [با] و و و و و [او]
-        </p>
-      </div>
+      <BasicText />
     </div>
   );
 }

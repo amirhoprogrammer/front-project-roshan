@@ -1,4 +1,33 @@
-function Audio() {
+import { useState, useRef } from "react";
+import "../App.css";
+function Audio(src) {
+  const [progress, setProgress] = useState(0); // درصد پیشرفت
+  const [isPlaying, setIsPlaying] = useState(false); // وضعیت پخش
+  const [volume, setVolume] = useState(1);
+  const audioRef = useRef(null); // رفرنس به تگ audio
+  // به‌روزرسانی Progress Bar
+  const handleTimeUpdate = () => {
+    const audio = audioRef.current;
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    setProgress(progressPercent);
+  };
+  // کنترل پخش و توقف
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.play();
+      setIsPlaying(true);
+    }
+  };
+  // وقتی صدا به پایان رسید
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setProgress(0);
+    audioRef.current.currentTime = 0; // بازگرداندن به ابتدا
+  };
   return (
     <div
       className="mx-10 flex flex-row rounded-2xl align-middle items-center justify-center p-1 gap-2.5"
