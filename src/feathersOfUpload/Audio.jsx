@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import "../App.css";
+import "./audio.css";
 function Audio(src) {
   const [progress, setProgress] = useState(0); // درصد پیشرفت
   const [isPlaying, setIsPlaying] = useState(false); // وضعیت پخش
@@ -27,6 +28,23 @@ function Audio(src) {
     setIsPlaying(false);
     setProgress(0);
     audioRef.current.currentTime = 0; // بازگرداندن به ابتدا
+  };
+  // جابجایی در صدا با کلیک روی Progress Bar
+  const handleSeek = (e) => {
+    const progressBar = e.currentTarget;
+    const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
+    const progressBarWidth = progressBar.offsetWidth;
+    const seekPercent = (clickPosition / progressBarWidth) * 100;
+    const audio = audioRef.current;
+    audio.currentTime = (seekPercent / 100) * audio.duration;
+    setProgress(seekPercent);
+  };
+
+  // تنظیم صدا
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume; // به‌روزرسانی مقدار صدا
   };
   return (
     <div
@@ -91,6 +109,17 @@ function Audio(src) {
             fill="#3D3D3D"
           />
         </svg>
+      </div>
+      <div className="volume-control">
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={handleVolumeChange}
+          className="volume-slider"
+        />
       </div>
     </div>
   );
