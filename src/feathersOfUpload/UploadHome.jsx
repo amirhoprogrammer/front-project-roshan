@@ -1,10 +1,16 @@
+import React, { useState } from "react";
 import BasicText from "./BasicText";
 import TimeText from "./TimeText";
 function UploadHome() {
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <div className="flex flex-col p-2">
       <div className="flex border-b-1 flex-row-reverse border-b-black py-2 align-middle justify-center items-center">
-        <div className="flex flex-row-reverse mx-2 my-2 py-2" style={{ direction: "rtl" }}>
+        <button
+          className={`flex flex-row-reverse mx-2 my-2 py-2 ${activeTab === 0 ? "border-b-2" : ""}`}
+          style={{ direction: "rtl" }}
+          onClick={() => setActiveTab(0)}
+        >
           <p>متن ساده</p>
           <svg
             width="17"
@@ -39,8 +45,12 @@ function UploadHome() {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
-        <div className="flex flex-row-reverse mx-2 my-2 py-2" style={{ direction: "rtl" }}>
+        </button>
+        <button
+          className={`flex flex-row-reverse mx-2 my-2 py-2 ${activeTab === 1 ? "border-b-1" : ""}`}
+          style={{ direction: "rtl" }}
+          onClick={() => setActiveTab(1)}
+        >
           <p>متن زمان بندی شده</p>
           <svg
             width="17"
@@ -61,7 +71,7 @@ function UploadHome() {
               fillOpacity="0.6"
             />
           </svg>
-        </div>
+        </button>
         <div className="mr-40 ml-2 my-2">
           <svg
             width="14"
@@ -145,7 +155,8 @@ function UploadHome() {
           <p className="mx-2">شروع دوباره</p>
         </button>
       </div>
-      <BasicText />
+      {activeTab === 0 && <BasicText />}
+      {activeTab === 1 && <TimeText />}
     </div>
   );
 }
