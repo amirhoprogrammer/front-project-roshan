@@ -9,6 +9,7 @@ import UploadHome from "./feathersOfUpload/UploadHome";
 import TimeText from "./feathersOfUpload/TimeText";
 import BasicText from "./feathersOfUpload/BasicText";
 import Audio from "./feathersOfUpload/Audio";
+import ItemArchive from "./Archive/ItemArchive";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
