@@ -8,6 +8,7 @@ import Language from "./feathers/Language";
 import UploadHome from "./feathersOfUpload/UploadHome";
 import TimeText from "./feathersOfUpload/TimeText";
 import BasicText from "./feathersOfUpload/BasicText";
+import Audio from "./feathersOfUpload/Audio";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="/uploadhome" element={<UploadHome />} />
       <Route path="/timetext" element={<TimeText />} />
       <Route path="/basictext" element={<BasicText />} />
+      <Route path="/audio" element={<Audio />} />
     </Routes>
   );
 }
