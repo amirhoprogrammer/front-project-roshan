@@ -26,6 +26,7 @@ function App() {
       <Route path="/timetext" element={<TimeText />} />
       <Route path="/basictext" element={<BasicText />} />
       <Route path="/audio" element={<Audio />} />
+      <Route path="/itemarchive" element={<ItemArchive />} />
     </Routes>
   );
 }
