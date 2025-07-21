@@ -1,6 +1,4 @@
 // src/config/apiConfig.js
-import config from "./api_config.json";
-
-export const BASE_URL = config.base_url;
-export const API_KEY = process.env.REACT_APP_API_KEY || config.api_key; // اولویت با متغیر محیطی
-export const ENDPOINTS = config.endpoints;
+export const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://harf.roshan-ai.ir/api";
+export const API_TOKEN =
+  import.meta.env.VITE_API_TOKEN || "a85d08400c622b50b18b61e239b9903645297196";
