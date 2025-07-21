@@ -1,9 +1,11 @@
 import Select from "react-select";
+import React, { useState } from "react";
 function Language() {
   const options = [
     { value: "persian", label: "فارسی" },
     { value: "english", label: "انگلیسی" },
   ];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -31,7 +33,7 @@ function Language() {
       borderBottomRightRadius: "20px",
       marginTop: "0px",
     }),
-    option: (provided, state) => ({
+    option: (provided) => ({
       ...provided,
       width: "min-width",
       margin: "0 10px",
@@ -70,12 +72,14 @@ function Language() {
   return (
     <div className="flex mx-73 my-5 items-start w-76">
       <Select
-        options={options}
+        value={selectedOption}
+        options={options.filter((opt) => opt.value !== selectedOption.value)}
         defaultValue={options[0]}
-        className="basic-select mx-2 w-34 "
+        className="mx-2 w-34 "
         classNamePrefix="select"
         styles={customStyles}
         components={flashComponents}
+        onChange={setSelectedOption}
       />
       <p className="w-48 my-1 mx-0" style={{ color: "#969696" }}>
         :زبان گفتار

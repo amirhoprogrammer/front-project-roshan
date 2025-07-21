@@ -6,7 +6,7 @@ function Guest() {
     {
       value: "guest",
       label: (
-        <div className="flex items-center rounded-2xl" style={{ direction: "rtl" }}>
+        <div className="flex items-center rounded-2xl p-0 m-0" style={{ direction: "rtl" }}>
           <svg
             width="20"
             height="19"
@@ -37,7 +37,7 @@ function Guest() {
     {
       value: "exit",
       label: (
-        <div className="flex items-center rounded-2xl" style={{ direction: "rtl" }}>
+        <div className="flex items-center rounded-2xl p-0 m-0" style={{ direction: "rtl" }}>
           <svg
             width="14"
             height="15"
@@ -82,7 +82,7 @@ function Guest() {
       borderBottom: "none",
       direction: "rtl",
       borderRadius: "20px",
-      padding: "0px",
+      padding: "0px 0px 0px 0px",
       backgroundColor: "white",
       boxShadow: state.isFocused ? "0 0 0 0 #0d9488" : "none", // change the show if is focus
       borderColor: state.isFocused ? "#0d9488" : "#14b8a6", // change the bordercolor
@@ -100,13 +100,13 @@ function Guest() {
       borderTopRightRadius: "none",
       borderBottomLeftRadius: "20px",
       borderBottomRightRadius: "20px",
-      margin: "0px",
-      padding: "0px",
+      margin: "-1px 0px 0px 0px",
+      padding: "0px 0px 0px 0px",
     }),
     option: (provided, state) => ({
       ...provided,
       width: "min-width",
-      margin: "0 10px",
+      margin: "0 10px 0 10px",
       borderTop: "2px solid #00b3a1",
       backgroundColor: "white",
       color: state.isSelected ? "white" : "#0d9488",
@@ -145,7 +145,7 @@ function Guest() {
       value={selectedOption}
       options={options.filter((opt) => opt.value !== selectedOption.value)}
       defaultValue={options[0]}
-      className="mx-6 w-34 "
+      className="mx-6 w-34"
       classNamePrefix="select"
       styles={customStyles}
       components={flashComponents}

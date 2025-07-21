@@ -10,7 +10,6 @@ import TimeText from "./feathersOfUpload/TimeText";
 import BasicText from "./feathersOfUpload/BasicText";
 import Audio from "./feathersOfUpload/Audio";
 import ItemArchive from "./Archive/ItemArchive";
-import CustomSelect from "./feathers/CustomSelect";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -28,7 +27,6 @@ function App() {
       <Route path="/basictext" element={<BasicText />} />
       <Route path="/audio" element={<Audio />} />
       <Route path="/itemarchive" element={<ItemArchive />} />
-      <Route path="/guest1" element={<CustomSelect />} />
     </Routes>
   );
 }
