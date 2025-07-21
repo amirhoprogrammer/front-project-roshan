@@ -8,12 +8,13 @@ function Language() {
     control: (provided, state) => ({
       ...provided,
       border: "2px solid #00b3a1",
+      borderBottom: state.isFocused ? "none" : "2px solid #00b3a1",
       direction: "rtl",
       borderRadius: "20px",
       padding: "0px",
       backgroundColor: "white",
-      boxShadow: state.isFocused ? "0 0 0 0 #0d9488" : "none", // تغییر سایه وقتی فوکوس می‌شه
-      borderColor: state.isFocused ? "#0d9488" : "#14b8a6", // تغییر رنگ مرزی
+      boxShadow: state.isFocused ? "0 0 0 0 #0d9488" : "none", // change the show if is focus
+      borderColor: state.isFocused ? "#0d9488" : "#14b8a6", // change the bordercolor
       borderBottomLeftRadius: state.isFocused ? "0px" : "20px",
       borderBottomRightRadius: state.isFocused ? "0px" : "20px",
       "&:hover": {
@@ -22,15 +23,24 @@ function Language() {
     }),
     menu: (provided) => ({
       ...provided,
+      border: "2px solid #00b3a1",
+      borderTop: "none",
+      borderTopLeftRadius: "none",
+      borderTopRightRadius: "none",
       borderBottomLeftRadius: "20px",
       borderBottomRightRadius: "20px",
       marginTop: "0px",
     }),
     option: (provided, state) => ({
       ...provided,
+      width: "min-width",
+      margin: "0 10px",
+      borderTop: "2px solid #00b3a1",
       backgroundColor: "white",
-      color: state.isSelected ? "white" : "#0d9488",
-      borderRadius: "20px",
+      color: "#0d9488",
+      //color: state.isSelected ? "white" : "#0d9488",
+      //borderRadius: "20px",
+      direction: "rtl",
       "&:hover": {
         backgroundColor: "#e0f2f1",
       },

@@ -47,7 +47,7 @@ function UploadHome() {
           </svg>
         </button>
         <button
-          className={`flex flex-row-reverse mx-2 my-2 py-2 ${activeTab === 1 ? "border-b-1" : ""}`}
+          className={`flex flex-row-reverse mx-2 my-2 py-2 ${activeTab === 1 ? "border-b-2" : ""}`}
           style={{ direction: "rtl" }}
           onClick={() => setActiveTab(1)}
         >

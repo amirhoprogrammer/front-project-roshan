@@ -74,16 +74,18 @@ function Guest() {
       ),
     },
   ];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
       border: "2px solid #00b3a1",
+      borderBottom: "none",
       direction: "rtl",
       borderRadius: "20px",
       padding: "0px",
       backgroundColor: "white",
-      boxShadow: state.isFocused ? "0 0 0 0 #0d9488" : "none", // تغییر سایه وقتی فوکوس می‌شه
-      borderColor: state.isFocused ? "#0d9488" : "#14b8a6", // تغییر رنگ مرزی
+      boxShadow: state.isFocused ? "0 0 0 0 #0d9488" : "none", // change the show if is focus
+      borderColor: state.isFocused ? "#0d9488" : "#14b8a6", // change the bordercolor
       borderBottomLeftRadius: state.isFocused ? "0px" : "20px",
       borderBottomRightRadius: state.isFocused ? "0px" : "20px",
       "&:hover": {
@@ -92,15 +94,23 @@ function Guest() {
     }),
     menu: (provided) => ({
       ...provided,
+      border: "2px solid #00b3a1",
+      borderTop: "none",
+      borderTopLeftRadius: "none",
+      borderTopRightRadius: "none",
       borderBottomLeftRadius: "20px",
       borderBottomRightRadius: "20px",
-      marginTop: "0px",
+      margin: "0px",
+      padding: "0px",
     }),
     option: (provided, state) => ({
       ...provided,
+      width: "min-width",
+      margin: "0 10px",
+      borderTop: "2px solid #00b3a1",
       backgroundColor: "white",
       color: state.isSelected ? "white" : "#0d9488",
-      borderRadius: "20px",
+      //borderRadius: "20px",
       "&:hover": {
         backgroundColor: "#e0f2f1",
       },
@@ -127,16 +137,21 @@ function Guest() {
       </svg>
     ),
   };
-
+  /*const customOptionLabel = ({ label }) => (
+    <div style={{ borderBottom: "2px solid #0d9488", padding: "5px 5px 5px 5px" }}>{label}</div>
+  );*/
   return (
     <Select
-      options={options}
+      value={selectedOption}
+      options={options.filter((opt) => opt.value !== selectedOption.value)}
       defaultValue={options[0]}
-      className="basic-select mx-6 w-34 "
+      className="mx-6 w-34 "
       classNamePrefix="select"
       styles={customStyles}
       components={flashComponents}
+      onChange={setSelectedOption}
     />
   );
 }
+//formatOptionLabel={customOptionLabel}
 export default Guest;

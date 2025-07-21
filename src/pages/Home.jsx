@@ -1,8 +1,6 @@
 import ChangeTheVoice from "./ChangeTheVoice";
 import Archive from "./Archive";
 import React, { useEffect, useState } from "react";
-//style={{ backgroundColor: `${activeButton === 0 ? "#02816e" : "00B3A1"}` }}
-//style={{ backgroundColor: `${activeButton === 1 ? "#02816e" : "00B3A1"}` }}
 function Home() {
   const [activeButton, setActiveButton] = useState(0);
   return (
@@ -12,10 +10,10 @@ function Home() {
         {activeButton === 1 && <Archive />}
       </div>
       <div
-        className="w-44 text-white p-4 flex flex-col items-center rounded-l-lg"
-        style={{ backgroundColor: "#00B3A1" }}
+        className="w-44 text-white p-4 flex flex-col items-center rounded-l-lg "
+        style={{ background: "linear-gradient(178.67deg, #00B5A0 11%, #00C69B 92.51%)" }}
       >
-        <div className="mb-48 mt-4 flex">
+        <div className="mb-40 mt-4 flex">
           <h3 className="mx-1">آوا</h3>
           <div className="h-4 w-0.5 bg-white my-2 mx-1"></div>
           <div className="h-8 w-0.5 bg-white mx-1 "></div>
