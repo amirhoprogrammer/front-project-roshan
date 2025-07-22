@@ -8,6 +8,7 @@ function Tabs() {
   const [mediaUrl, setMediaUrl] = useState("");
   //const [result, setResult] = useState(null);
   const [transcription, setTranscription] = useState(null);
+  const [transcription1, setTranscription1] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(true);
@@ -23,6 +24,7 @@ function Tabs() {
         .map((segment) => segment.text)
         .join(" ");
       setTranscription(textSegments);
+      setTranscription1(data[0]);
       setShowForm(false);
       setLoading(false);
     } catch (err) {
@@ -35,6 +37,26 @@ function Tabs() {
     setTranscription(null);
     setMediaUrl("");
     setError(null);
+  };
+  // تبدیل فرمت زمان (ساعت:دقیقه:ثانیه:میلی‌ثانیه) به ثانیه
+  const convertToSeconds = (timeStr) => {
+    if (!timeStr) return 0;
+    const [hours, minutes, secondsWithMs] = timeStr.split(":");
+    const [seconds, milliseconds] = secondsWithMs.split(".");
+    return (
+      parseInt(hours) * 3600 +
+      parseInt(minutes) * 60 +
+      parseInt(seconds) +
+      (milliseconds ? parseInt(milliseconds) / 1000 : 0)
+    );
+  };
+
+  // تبدیل ثانیه به فرمت دقیقه:ثانیه (بدون ساعت)
+  const formatTime = (seconds) => {
+    const totalMinutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    const mins = totalMinutes % 60; // فقط دقیقه رو می‌گیریم
+    return `${mins < 10 ? "0" : ""}${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
   const [activeTab, setActiveTab] = useState(0);
   const [activeButton, setActiveButton] = useState(0);
@@ -257,20 +279,20 @@ function Tabs() {
               <div className="flex flex-col p-4 ">
                 <div className="flex border-b-1 flex-row border-b-black my-0 h-10 p-0">
                   <button
-                    className={`flex flex-row-reverse mx-2 my-0 py-0 ${
+                    className={`flex flex-row-reverse mx-0 my-0 py-0 gap-1 px-2 ${
                       activeButton === 0 ? "border-b-2" : ""
                     }`}
                     style={{ direction: "rtl" }}
                     onClick={() => setActiveButton(0)}
                   >
-                    <p className="mx-2">متن ساده</p>
+                    <p>متن ساده</p>
                     <svg
                       width="17"
                       height="17"
                       viewBox="0 0 17 17"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="my-2 mx-2"
+                      className="my-2"
                     >
                       <path
                         d="M1.47821 3.69568H15.7065"
@@ -299,20 +321,20 @@ function Tabs() {
                     </svg>
                   </button>
                   <button
-                    className={`flex flex-row-reverse mx-2 my-0 py-0 ${
-                      activeButton === 1 ? "border-b-2" : ""
+                    className={`flex flex-row-reverse mx-2 my-0 py-0 gap-1 px-2  ${
+                      activeButton === 1 ? "border-b-2 " : ""
                     }`}
                     style={{ direction: "rtl" }}
                     onClick={() => setActiveButton(1)}
                   >
-                    <p className="mx-2">متن زمان بندی شده</p>
+                    <p>متن زمان بندی شده</p>
                     <svg
                       width="17"
                       height="17"
                       viewBox="0 0 17 17"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="my-2 mx-2"
+                      className="my-2"
                     >
                       <path
                         d="M8.50001 16.8125C6.27938 16.8125 4.19235 15.948 2.62248 14.3775C0.0562897 11.8119 -0.553491 7.92109 1.10604 4.69703C1.25626 4.4055 1.6137 4.29091 1.90582 4.44053C2.19795 4.59016 2.31254 4.94819 2.16232 5.24031C0.739696 8.00362 1.2622 11.3381 3.46204 13.538C4.80748 14.884 6.59645 15.625 8.50001 15.625C10.403 15.625 12.1925 14.884 13.538 13.538C14.8834 12.1919 15.625 10.403 15.625 8.5C15.625 6.59644 14.884 4.80747 13.538 3.46203C12.1919 2.11659 10.4036 1.375 8.50001 1.375C6.59645 1.375 4.80748 2.11659 3.46204 3.46203C3.22988 3.69419 2.85463 3.69419 2.62248 3.46203C2.39032 3.22987 2.39032 2.85462 2.62248 2.62247C4.19235 1.05259 6.27938 0.1875 8.50001 0.1875C10.7206 0.1875 12.8083 1.05259 14.3775 2.62247C15.948 4.19234 16.8125 6.27938 16.8125 8.5C16.8125 10.72 15.948 12.8077 14.3775 14.3775C12.8083 15.948 10.7206 16.8125 8.50001 16.8125Z"
@@ -326,7 +348,8 @@ function Tabs() {
                       />
                     </svg>
                   </button>
-                  <div className="mr-10 ml-2 my-0">
+                  <div className="px-2 py-2 mr-24">
+                    {/*{`px-2 py-2 ${activeButton === 1 ? "mr-14" : "mr-24"}`} */}
                     <svg
                       width="14"
                       height="15"
@@ -348,7 +371,7 @@ function Tabs() {
                       />
                     </svg>
                   </div>
-                  <div className="mx-2 my-0">
+                  <div className="mx-2 px-2 py-2">
                     <svg
                       width="16"
                       height="18"
@@ -367,8 +390,9 @@ function Tabs() {
                     </svg>
                   </div>
                   <button
-                    className="flex flex-row mx-2 rounded-2xl px-3 my-0 py-0 reset-button"
-                    style={{ backgroundColor: "#118AD3" }}
+                    className="flex flex-row rounded-2xl px-2 mb-1 mx-2 gap-1"
+                    style={{ backgroundColor: "#FF1654" }}
+                    onClick={handleReset}
                   >
                     <div>
                       <svg
@@ -406,7 +430,7 @@ function Tabs() {
                         </defs>
                       </svg>
                     </div>
-                    <p className="mx-2">شروع دوباره</p>
+                    <p className="text-white">شروع دوباره</p>
                   </button>
                 </div>
                 {activeButton === 0 && (
@@ -422,30 +446,45 @@ function Tabs() {
                     >
                       {transcription}
                     </p>
-                    <Audio />
+                    {mediaUrl && <Audio src={mediaUrl} />}
                   </div>
                 )}
-                {activeButton === 1 && <TimeText />}
-              </div>
-              {/*<UploadHome transcription={transcription} onReset={handleReset} />*/}
+                {activeButton === 1 && transcription1 && transcription1.segments && (
+                  <div className="p-0" style={{ direction: "rtl" }}>
+                    <div
+                      className=""
+                      style={{
+                        maxHeight: "160px",
+                        overflowY: "auto",
+                        border: "1px solid #e0e0e0",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      {transcription1.segments.map((segment, index) => {
+                        if (!segment.text.trim()) return null; // نادیده گرفتن segment‌های خالی
+                        return (
+                          <div
+                            key={index}
+                            className="flex my-1 px-2 py-3 border-2 border-white rounded-2xl gap-2"
+                            style={{
+                              fontFamily: "Vazir, sans-serif",
+                              fontSize: "15px",
+                              lineHeight: "1.5",
+                              backgroundColor: "#F2F2F2",
+                            }}
+                          >
+                            <p>{formatTime(convertToSeconds(segment.start))}</p>
+                            <p>{formatTime(convertToSeconds(segment.end))}</p>
+                            <p>{segment.text}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
 
-              {/*<p
-                style={{
-                  whiteSpace: "pre-wrap",
-                  fontSize: "10px",
-                  lineHeight: "0.5",
-                  fontFamily: "Vazir, sans-serif",
-                }}
-              >
-                {transcription}
-              </p>*/}
-              {/*<button
-                onClick={handleReset}
-                className="mt-4 p-2 rounded-3xl"
-                style={{ backgroundColor: "#FF1654", color: "white" }}
-              >
-                تلاش دوباره
-              </button>*/}
+                    {mediaUrl && <Audio src={mediaUrl} />}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>

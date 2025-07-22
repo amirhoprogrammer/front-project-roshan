@@ -1,16 +1,19 @@
 import { useState, useRef } from "react";
 import "../App.css";
 import "./audio.css";
-function Audio(src) {
+function Audio({ src }) {
   const [progress, setProgress] = useState(0); // درصد پیشرفت
   const [isPlaying, setIsPlaying] = useState(false); // وضعیت پخش
-  const [volume, setVolume] = useState(1);
+  const [reset, setReset] = useState(false); // وضعیت از اول پخش کردن
+  const [volume, setVolume] = useState(1); // زمان فعلی
+  const [currentTime, setCurrrenttime] = useState(0);
   const audioRef = useRef(null); // رفرنس به تگ audio
   // به‌روزرسانی Progress Bar
   const handleTimeUpdate = () => {
     const audio = audioRef.current;
     const progressPercent = (audio.currentTime / audio.duration) * 100;
     setProgress(progressPercent);
+    setCurrrenttime(audio.currentTime); // به‌روزرسانی زمان فعلی
   };
   // کنترل پخش و توقف
   const togglePlayPause = () => {
@@ -19,14 +22,35 @@ function Audio(src) {
       audio.pause();
       setIsPlaying(false);
     } else {
-      audio.play();
+      audio.play().catch((error) => {
+        console.error("خطا در پخش فایل صوتی:", error);
+      });
       setIsPlaying(true);
+    }
+  };
+  // از اول پخش شدن
+  const resetPlay = (reset) => {
+    const audio = audioRef.current;
+    if (reset) {
+      audio.pause();
+      setIsPlaying(false);
+      setProgress(0);
+      setCurrrenttime(0); // بازگرداندن زمان به صفر
+      audio.currentTime = 0; // بازگرداندن به ابتدا
+      setReset(true);
+    } else {
+      audio.play().catch((error) => {
+        console.error("خطا در پخش فایل صوتی:", error);
+      });
+      setIsPlaying(true);
+      setReset(false);
     }
   };
   // وقتی صدا به پایان رسید
   const handleEnded = () => {
     setIsPlaying(false);
     setProgress(0);
+    setCurrrenttime(0); // بازگرداندن زمان به صفر
     audioRef.current.currentTime = 0; // بازگرداندن به ابتدا
   };
   // جابجایی در صدا با کلیک روی Progress Bar
@@ -38,6 +62,7 @@ function Audio(src) {
     const audio = audioRef.current;
     audio.currentTime = (seekPercent / 100) * audio.duration;
     setProgress(seekPercent);
+    setCurrrenttime(audio.currentTime);
   };
 
   // تنظیم صدا
@@ -46,12 +71,18 @@ function Audio(src) {
     setVolume(newVolume);
     audioRef.current.volume = newVolume; // به‌روزرسانی مقدار صدا
   };
+  // تبدیل ثانیه به فرمت MM:SS
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
   return (
     <div
-      className="mx-10 mt-4 flex flex-row-reverse rounded-2xl align-middle items-center justify-center p-1 gap-2.5"
-      style={{ backgroundColor: "#F8F8F8" }}
+      className="mx-10 mt-4 flex flex-row rounded-2xl align-middle items-center justify-center p-1 gap-2.5"
+      style={{ backgroundColor: "#F8F8F8", direction: "ltr" }}
     >
-      <button className="mx-2 py-2">
+      <button className="mx-2 py-2" onClick={resetPlay}>
         <svg
           width="12"
           height="12"
@@ -70,14 +101,22 @@ function Audio(src) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M1.53081 11.9998H0.469187C0.210063 11.9998 0 11.5367 0 10.9656V1.04373C0 0.472552 0.210063 0.00952148 0.469187 0.00952148H1.53081C1.78994 0.00952148 2 0.472552 2 1.04373V10.9656C2 11.5367 1.78994 11.9998 1.53081 11.9998Z"
-            fill="#3D3D3D"
-          />
-          <path
-            d="M6.53081 11.9902H5.46919C5.21006 11.9902 5 11.5272 5 10.956V1.03421C5 0.463031 5.21006 0 5.46919 0H6.53081C6.78994 0 7 0.463031 7 1.03421V10.956C7 11.5272 6.78994 11.9902 6.53081 11.9902Z"
-            fill="#3D3D3D"
-          />
+          {isPlaying ? (
+            // آیکون توقف
+            <>
+              <path
+                d="M1.53081 11.9998H0.469187C0.210063 11.9998 0 11.5367 0 10.9656V1.04373C0 0.472552 0.210063 0.00952148 0.469187 0.00952148H1.53081C1.78994 0.00952148 2 0.472552 2 1.04373V10.9656C2 11.5367 1.78994 11.9998 1.53081 11.9998Z"
+                fill="#3D3D3D"
+              />
+              <path
+                d="M6.53081 11.9902H5.46919C5.21006 11.9902 5 11.5272 5 10.956V1.03421C5 0.463031 5.21006 0 5.46919 0H6.53081C6.78994 0 7 0.463031 7 1.03421V10.956C7 11.5272 6.78994 11.9902 6.53081 11.9902Z"
+                fill="#3D3D3D"
+              />
+            </>
+          ) : (
+            // آیکون پخش
+            <path d="M0.5 11.5V0.5L6.5 6L0.5 11.5Z" fill="#3D3D3D" />
+          )}
         </svg>
       </button>
       <audio
@@ -92,8 +131,7 @@ function Audio(src) {
           style={{ width: `${progress}%` }} // تنظیم عرض نوار پیشرفت
         ></div>
       </div>
-      {/*<button onClick={togglePlayPause}>{isPlaying ? "توقف" : "پخش"}</button>*/}
-      <div className="flex">4:29</div>
+      <div className="flex">{formatTime(currentTime)}</div>
       <div className="flex">
         <svg
           width="15"
