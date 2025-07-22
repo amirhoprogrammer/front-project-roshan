@@ -1,5 +1,30 @@
 import React, { useState } from "react";
+import { transcribeFiles } from "../services/Api";
 function Tabs() {
+  const [mediaUrl, setMediaUrl] = useState("");
+  //const [result, setResult] = useState(null);
+  const [transcription, setTranscription] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await transcribeFiles([mediaUrl]);
+      //setResult(data);
+      const textSegments = data[0].segments
+        .filter((segment) => segment.text.trim() !== "")
+        .map((segment) => segment.text)
+        .join("\n");
+      setTranscription(textSegments);
+      setLoading(false);
+    } catch (err) {
+      setError(`خطا در تبدیل فایل:${err.message}`);
+      setLoading(false);
+    }
+  };
   const [activeTab, setActiveTab] = useState(0);
   const tabs = [
     {
@@ -166,51 +191,90 @@ function Tabs() {
           className="flex flex-col rounded-2xl p-8 items-center justify-center"
           style={{ direction: "rtl" }}
         >
+          {/*<form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={mediaUrl}
+              onChange={(e) => setMediaUrl(e.target.value)}
+              placeholder="آدرس فایل صوتی یا تصویری"
+              required
+              style={{ padding: "5px", marginBottom: "5px" }}
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              style={{ padding: "5px 10px", cursor: loading ? "not-allowed" : "pointer" }}
+            >
+              {loading ? "در حال پردازش..." : "تبدیل"}
+            </button>
+          </form>
+          {error && <p style={{ color: "red", marginTop: "5px" }}>{error}</p>}
+          {transcription && (
+            <div>
+              <h2 style={{ marginTop: "5px" }}>نتیجه:</h2>
+              <p style={{ whiteSpace: "pre-wrap", fontSize: "10px", lineHeight: "0.5" }}>
+                {transcription}
+              </p>
+            </div>
+          )}*/}
           <div
             className="rounded-full flex flex-row-reverse p-1"
             style={{ border: "1px solid #FF1654" }}
           >
-            <div className="p-2 rounded-3xl" style={{ backgroundColor: "#FF1654" }}>
-              <svg
-                width="14"
-                height="16"
-                viewBox="0 0 14 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <form onSubmit={handleSubmit} className="flex flex-row-reverse">
+              <button
+                type="submit"
+                disabled={loading}
+                className="p-1.5 rounded-3xl"
+                style={{ backgroundColor: "#FF1654", cursor: loading ? "not-allowed" : "pointer" }}
               >
-                <path
-                  d="M6.91027 3.40673L8.63166 1.68534C9.72018 0.723395 11.3403 0.824653 12.3023 1.88786C13.1883 2.84981 13.1883 4.34336 12.3023 5.33063L10.5556 7.05201L11.0872 7.58361L12.8339 5.83691C14.1249 4.54588 14.0743 2.41946 12.7579 1.12843C11.4669 -0.111982 9.4164 -0.111982 8.12537 1.12843L6.37867 2.84981C5.08763 4.16616 5.08763 6.26726 6.37867 7.58361L6.91027 7.05201C5.92301 6.03943 5.92301 4.41931 6.91027 3.40673Z"
-                  fill="white"
-                />
-                <path
-                  d="M6.6065 14.95L8.35319 13.2286C9.64423 11.9123 9.64423 9.81118 8.35319 8.52014L7.82159 9.05174C8.83417 10.0643 8.83417 11.6844 7.82159 12.697L6.07489 14.4184C5.06231 15.431 3.44219 15.431 2.42961 14.4184C1.41703 13.4058 1.41703 11.7857 2.42961 10.7731L4.17631 9.05174L3.6447 8.52014L1.92332 10.2415C0.581654 11.5072 0.505712 13.6083 1.77143 14.95C3.03716 16.2917 5.13826 16.3676 6.47992 15.1019C6.53055 15.026 6.58118 15.0006 6.6065 14.95Z"
-                  fill="white"
-                />
-                <path
-                  d="M9.75684 6.23243L9.21985 5.69543L5.03128 9.884L5.56828 10.421L9.75684 6.23243Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-            <input type="text" placeholder="example.com/sample.mp3" className="rounded-2xl" />
+                <svg
+                  width="14"
+                  height="16"
+                  viewBox="0 0 14 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.91027 3.40673L8.63166 1.68534C9.72018 0.723395 11.3403 0.824653 12.3023 1.88786C13.1883 2.84981 13.1883 4.34336 12.3023 5.33063L10.5556 7.05201L11.0872 7.58361L12.8339 5.83691C14.1249 4.54588 14.0743 2.41946 12.7579 1.12843C11.4669 -0.111982 9.4164 -0.111982 8.12537 1.12843L6.37867 2.84981C5.08763 4.16616 5.08763 6.26726 6.37867 7.58361L6.91027 7.05201C5.92301 6.03943 5.92301 4.41931 6.91027 3.40673Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6.6065 14.95L8.35319 13.2286C9.64423 11.9123 9.64423 9.81118 8.35319 8.52014L7.82159 9.05174C8.83417 10.0643 8.83417 11.6844 7.82159 12.697L6.07489 14.4184C5.06231 15.431 3.44219 15.431 2.42961 14.4184C1.41703 13.4058 1.41703 11.7857 2.42961 10.7731L4.17631 9.05174L3.6447 8.52014L1.92332 10.2415C0.581654 11.5072 0.505712 13.6083 1.77143 14.95C3.03716 16.2917 5.13826 16.3676 6.47992 15.1019C6.53055 15.026 6.58118 15.0006 6.6065 14.95Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9.75684 6.23243L9.21985 5.69543L5.03128 9.884L5.56828 10.421L9.75684 6.23243Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+              <input
+                type="text"
+                placeholder="example.com/sample.mp3"
+                value={mediaUrl}
+                onChange={(e) => setMediaUrl(e.target.value)}
+                required
+                className="rounded-2xl p-1 mb-1"
+              />
+            </form>
           </div>
           <p className="mt-2" style={{ textAlign: "center", color: "#626262" }}>
             نشانی اینترنتی فایل حاوی گفتار (صوتی/تصویری) را وارد و دکمه را فشار دهید
           </p>
+          {error && <p style={{ color: "red", marginTop: "5px" }}>{error}</p>}
+          {transcription && (
+            <div>
+              <h2 style={{ marginTop: "5px" }}>نتیجه:</h2>
+              <p style={{ whiteSpace: "pre-wrap", fontSize: "10px", lineHeight: "0.5" }}>
+                {transcription}
+              </p>
+            </div>
+          )}
         </div>
       ),
     },
   ];
-  /*const Tab = ({ label, isActive, onClick }) => (
-    <button
-      className={`px-2 py-2 font-medium ${
-        isActive ? "active rounded-t-2xl" : "deactive rounded-2xl"
-      }`}
-      onClick={onClick}
-    >
-      {label}
-    </button>
-  );*/
   const Tab1 = ({ isActive, onClick }) => (
     <button
       className={`px-2 py-2 font-medium ${

@@ -4,7 +4,6 @@ import Tabs from "../feathers/Tabs";
 import Language from "../feathers/Language";
 import "../App.css";
 function ChangeTheVoice() {
-  const [selectedValue, setSelectedValue] = useState("");
   return (
     <div className="mt-8 mb-4 flex flex-col">
       <Guest />
