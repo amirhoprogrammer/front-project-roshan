@@ -48,7 +48,7 @@ function Audio(src) {
   };
   return (
     <div
-      className="mx-10 flex flex-row rounded-2xl align-middle items-center justify-center p-1 gap-2.5"
+      className="mx-10 mt-4 flex flex-row-reverse rounded-2xl align-middle items-center justify-center p-1 gap-2.5"
       style={{ backgroundColor: "#F8F8F8" }}
     >
       <button className="mx-2 py-2">

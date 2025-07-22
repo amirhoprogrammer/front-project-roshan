@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { transcribeFiles } from "../services/Api";
+import UploadHome from "../feathersOfUpload/UploadHome";
 import "@fontsource/vazir";
 function Tabs() {
   const [mediaUrl, setMediaUrl] = useState("");
@@ -119,7 +120,7 @@ function Tabs() {
       ),
       content: (
         <div
-          className="flex flex-col rounded-2xl p-4 items-center justify-center"
+          className="flex flex-col rounded-2xl p-8 items-center justify-center"
           style={{ direction: "rtl" }}
         >
           <div className="rounded-full" style={{ backgroundColor: "#118AD3" }}>
@@ -195,14 +196,12 @@ function Tabs() {
         </div>
       ),
       content: (
-        <div
-          className="flex flex-col rounded-2xl p-8 items-center justify-center"
-          style={{ direction: "rtl" }}
-        >
-          {showForm ? (
-            <>
+        <div className="flex flex-col rounded-2xl px-2" style={{ direction: "rtl" }}>
+          <UploadHome />
+          {/*showForm ? (
+            <div className="p-20">
               <div
-                className="rounded-full flex flex-row-reverse p-1"
+                className="rounded-full flex flex-row-reverse "
                 style={{ border: "1px solid #FF1654" }}
               >
                 <form onSubmit={handleSubmit} className="flex flex-row-reverse">
@@ -250,10 +249,10 @@ function Tabs() {
                 نشانی اینترنتی فایل حاوی گفتار (صوتی/تصویری) را وارد و دکمه را فشار دهید
               </p>
               {error && <p style={{ color: "red", marginTop: "5px" }}>{error}</p>}
-            </>
+            </div>
           ) : (
-            <div>
-              <h2 style={{ marginTop: "5px" }}>نتیجه:</h2>
+            <div style={{ direction: "rtl" }}>
+              <UploadHome />
               <p
                 style={{
                   whiteSpace: "pre-wrap",
@@ -264,15 +263,15 @@ function Tabs() {
               >
                 {transcription}
               </p>
-              <button
+              {/*<button
                 onClick={handleReset}
                 className="mt-4 p-2 rounded-3xl"
                 style={{ backgroundColor: "#FF1654", color: "white" }}
               >
                 تلاش دوباره
-              </button>
+              </button>}
             </div>
-          )}
+          )*/}
           {/*<div
             className="rounded-full flex flex-row-reverse p-1"
             style={{ border: "1px solid #FF1654" }}
@@ -384,11 +383,11 @@ function Tabs() {
   );
   const TabContent3 = ({ isActive }) => (
     <div className={`border-2 rounded-2xl ${isActive ? "activecont3" : "deactivecont3"} `}>
-      <div className={`p-20 ${isActive ? "block" : "hidden"}`}>{tabs[2].content}</div>
+      <div className={`${isActive ? "block" : "hidden"}`}>{tabs[2].content}</div>
     </div>
   );
   return (
-    <div>
+    <div className="p-0 m-0">
       <div className="flex" style={{ direction: "rtl" }}>
         {tabs.map(
           (tab, index) =>

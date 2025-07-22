@@ -5,9 +5,9 @@ function UploadHome() {
   const [activeTab, setActiveTab] = useState(0);
   return (
     <div className="flex flex-col p-2">
-      <div className="flex border-b-1 flex-row-reverse border-b-black py-2 align-middle justify-center items-center">
+      <div className="flex border-b-1 flex-row border-b-black py-0">
         <button
-          className={`flex flex-row-reverse mx-2 my-2 py-2 ${activeTab === 0 ? "border-b-2" : ""}`}
+          className={`flex flex-row-reverse mx-2 my-0 py-2 ${activeTab === 0 ? "border-b-2" : ""}`}
           style={{ direction: "rtl" }}
           onClick={() => setActiveTab(0)}
         >
@@ -47,7 +47,7 @@ function UploadHome() {
           </svg>
         </button>
         <button
-          className={`flex flex-row-reverse mx-2 my-2 py-2 ${activeTab === 1 ? "border-b-2" : ""}`}
+          className={`flex flex-row-reverse mx-2 my-0 py-2 ${activeTab === 1 ? "border-b-2" : ""}`}
           style={{ direction: "rtl" }}
           onClick={() => setActiveTab(1)}
         >
@@ -72,7 +72,7 @@ function UploadHome() {
             />
           </svg>
         </button>
-        <div className="mr-40 ml-2 my-2">
+        <div className="mr-10 ml-2 my-4">
           <svg
             width="14"
             height="15"
@@ -94,7 +94,7 @@ function UploadHome() {
             />
           </svg>
         </div>
-        <div className="mx-2 my-2">
+        <div className="mx-2 my-4">
           <svg
             width="16"
             height="18"
@@ -113,7 +113,7 @@ function UploadHome() {
           </svg>
         </div>
         <button
-          className="flex flex-row-reverse mx-2 rounded-2xl px-2 my-2"
+          className="flex flex-row mx-2 rounded-2xl px-3 my-2 py-1"
           style={{ backgroundColor: "#118AD3" }}
         >
           <div>
