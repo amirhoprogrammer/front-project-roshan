@@ -14,7 +14,9 @@ function Home() {
         style={{ background: "linear-gradient(178.67deg, #00B5A0 11%, #00C69B 92.51%)" }}
       >
         <div className="mb-40 mt-4 flex">
-          <h3 className="mx-1">آوا</h3>
+          <h3 className="mx-1">
+            <a href="/">آوا</a>
+          </h3>
           <div className="h-4 w-0.5 bg-white my-2 mx-1"></div>
           <div className="h-8 w-0.5 bg-white mx-1 "></div>
           <div className="h-4 w-0.5 bg-white my-2 mx-1"></div>
