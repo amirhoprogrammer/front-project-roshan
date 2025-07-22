@@ -17,7 +17,7 @@ function ChangeTheVoice() {
         آوا با استفاده از هزاران ساعت گفتار با صدای افراد مختلف، زبان فارسی را یاد گرفته است
         می‌تواند متن صحبت‌ها را بنویسد
       </p>
-      <div className="p-0 mx-64 mt-10">
+      <div className="p-0 mx-60 mt-10">
         <Tabs />
       </div>
       <Language />

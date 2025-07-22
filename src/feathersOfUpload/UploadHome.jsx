@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BasicText from "./BasicText";
 import TimeText from "./TimeText";
+import "./uploadhome.css";
 function UploadHome() {
   const [activeTab, setActiveTab] = useState(0);
   return (
@@ -113,7 +114,7 @@ function UploadHome() {
           </svg>
         </div>
         <button
-          className="flex flex-row mx-2 rounded-2xl px-3 my-2 py-1"
+          className="flex flex-row mx-2 rounded-2xl px-3 my-2 py-1 reset-button"
           style={{ backgroundColor: "#118AD3" }}
         >
           <div>
