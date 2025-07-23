@@ -79,7 +79,7 @@ function Guest() {
     control: (provided, state) => ({
       ...provided,
       border: "2px solid #00b3a1",
-      borderBottom: "none",
+      borderBottom: state.isFocused ? "none" : "2px solid #00b3a1",
       direction: "rtl",
       borderRadius: "20px",
       padding: "0px 0px 0px 0px",
@@ -137,9 +137,6 @@ function Guest() {
       </svg>
     ),
   };
-  /*const customOptionLabel = ({ label }) => (
-    <div style={{ borderBottom: "2px solid #0d9488", padding: "5px 5px 5px 5px" }}>{label}</div>
-  );*/
   return (
     <Select
       value={selectedOption}
@@ -153,5 +150,4 @@ function Guest() {
     />
   );
 }
-//formatOptionLabel={customOptionLabel}
 export default Guest;
