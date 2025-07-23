@@ -67,5 +67,11 @@
   background-color: #02816e;
 }
 .deactiveB {
-  background-color: #00b3a1;
+  background-color: linear-gradient(178.67deg, #00b5a0 11%, #00c69b 92.51%);
+}
+form input {
+  &::placeholder {
+    opacity: 1;
+    text-indent: -3px;
+  }
 }
