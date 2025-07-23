@@ -6,7 +6,6 @@ import TimeText from "../feathersOfUpload/TimeText";
 import "@fontsource/vazir";
 function Tabs() {
   const [mediaUrl, setMediaUrl] = useState("");
-  //const [result, setResult] = useState(null);
   const [transcription, setTranscription] = useState(null);
   const [transcription1, setTranscription1] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +17,6 @@ function Tabs() {
     setError(null);
     try {
       const data = await transcribeFiles([mediaUrl]);
-      //setResult(data);
       const textSegments = data[0].segments
         .filter((segment) => segment.text.trim() !== "")
         .map((segment) => segment.text)
@@ -26,6 +24,22 @@ function Tabs() {
       setTranscription(textSegments);
       setTranscription1(data[0]);
       setShowForm(false);
+      // ارسال درخواست به API transcribe_files
+      const token = "a85d08400c622b50b18b61e239b9903645297196"; // توکن از Postman
+      const response = await fetch(
+        "https://proxy.corsfix.com/?https://harf.roshan-ai.ir/api/transcribe_files/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ media_urls: [mediaUrl] }),
+        }
+      );
+      if (!response.ok) throw new Error("خطا در ارسال به سرور");
+      const result = await response.json();
+      console.log("درخواست با موفقیت ثبت شد:", result);
       setLoading(false);
     } catch (err) {
       setError(`خطا در تبدیل فایل:${err.message}`);

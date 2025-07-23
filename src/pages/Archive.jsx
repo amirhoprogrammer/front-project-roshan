@@ -1,9 +1,36 @@
-//import { useState, React } from "react";
-//import Select from "react-select";
-import ItemArchive from "../Archive/ItemArchive";
+import React, { useState, useEffect } from "react";
+import ItemArchive from "./ItemArchive";
 import Guest from "../feathers/Guest";
 import "../App.css";
 function Archive() {
+  const [requests, setRequests] = useState([]);
+  useEffect(() => {
+    // فرض می‌کنیم اینجا درخواست به API list requests ارسال می‌شه
+    const fetchRequests = async () => {
+      const token = "a85d08400c622b50b18b61e239b9903645297196"; // توکن از Postman
+      try {
+        const response = await fetch(
+          "https://proxy.corsfix.com/?https://harf.roshan-ai.ir/api/requests/",
+          {
+            headers: { Authorization: `Token ${token}` },
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("پاسخ API:", data); // دیباگ برای دیدن داده
+        setRequests(Array.isArray(data) ? data : data.results || []);
+        //setRequests(data); // فرض می‌کنیم data شامل لیست درخواست‌هاست
+        // مطمئن شو data یه آرایه هست
+        setRequests(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("خطا در دریافت درخواست‌ها:", error);
+        setRequests([]); // اگه خطا داد، آرایه خالی ست کن
+      }
+    };
+    fetchRequests();
+  }, []);
   return (
     <div className="mt-8 mb-4 flex flex-col">
       <Guest />
@@ -25,7 +52,20 @@ function Archive() {
             <p>مدت زمان</p>
           </div>
         </div>
-        <ItemArchive />
+        {requests.length === 0 ? (
+          <p style={{ textAlign: "center", color: "#626262" }}>هیچ درخواستی یافت نشد.</p>
+        ) : (
+          requests.map((request, index) => (
+            <ItemArchive
+              key={index}
+              name={request.name || "نام ناشناس"}
+              date={request.date || "تاریخ نامشخص"}
+              type={request.type || "نوع ناشناس"}
+              duration={request.duration || "مدت نامشخص"}
+              imageUrl={`/api/media_image/${request.media_url}`} // اصلاح آدرس تصویر
+            />
+          ))
+        )}
       </div>
     </div>
   );
