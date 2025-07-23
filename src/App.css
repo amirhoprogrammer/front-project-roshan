@@ -75,3 +75,10 @@ form input {
     text-indent: -3px;
   }
 }
+/*for segement map*/
+.activeseg {
+  background-color: #f2f2f2;
+}
+.deactiveseg {
+  background-color: white;
+}

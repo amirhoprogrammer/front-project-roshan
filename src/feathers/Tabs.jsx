@@ -1,9 +1,32 @@
 import React, { useState } from "react";
 import { transcribeFiles } from "../services/Api";
-import UploadHome from "../feathersOfUpload/UploadHome";
 import Audio from "../feathersOfUpload/Audio";
-import TimeText from "../feathersOfUpload/TimeText";
 import "@fontsource/vazir";
+// تابع برای کپی کردن متن به کلیپ‌بورد
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text).then(
+    () => {
+      alert("متن با موفقیت کپی شد!");
+    },
+    (err) => {
+      console.error("خطا در کپی کردن متن: ", err);
+      alert("خطا در کپی کردن متن!");
+    }
+  );
+};
+
+// تابع برای دانلود متن به‌صورت فایل
+const downloadText = (text, filename) => {
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
 function Tabs() {
   const [mediaUrl, setMediaUrl] = useState("");
   const [transcription, setTranscription] = useState(null);
@@ -11,12 +34,46 @@ function Tabs() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(true);
+  const [file, setFile] = useState(null); // برای ذخیره فایل انتخاب‌ شده
+
+  // تابع آپلود فایل
+  /*const handleFileUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      // فرض می‌کنیم endpoint آپلود فایل وجود دارد
+      const uploadResponse = await fetch("https://harf.roshan-ai.ir/api/upload/", {
+        method: "POST",
+        headers: {
+          Authorization: `Token a85d08400c622b50b18b61e239b9903645297196`,
+        },
+        body: formData,
+      });
+      if (!uploadResponse.ok) throw new Error("خطا در آپلود فایل");
+      const uploadResult = await uploadResponse.json();
+      return uploadResult.url; // فرض می‌کنیم سرور URL فایل آپلودشده را برمی‌گرداند
+    } catch (err) {
+      throw new Error(`خطا در آپلود فایل: ${err.message}`);
+    }
+  };*/
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    /*let url = mediaUrl;
+    if (file) {
+      try {
+        url = await handleFileUpload(file); // آپلود فایل و دریافت URL
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+        return;
+      }
+    }*/
     try {
       const data = await transcribeFiles([mediaUrl]);
+      //const data = await transcribeFiles([url]);
       const textSegments = data[0].segments
         .filter((segment) => segment.text.trim() !== "")
         .map((segment) => segment.text)
@@ -26,17 +83,14 @@ function Tabs() {
       setShowForm(false);
       // ارسال درخواست به API transcribe_files
       const token = "a85d08400c622b50b18b61e239b9903645297196"; // توکن از Postman
-      const response = await fetch(
-        "https://proxy.corsfix.com/?https://harf.roshan-ai.ir/api/transcribe_files/",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ media_urls: [mediaUrl] }),
-        }
-      );
+      const response = await fetch("/api/transcribe_files/", {
+        method: "POST",
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ media_urls: [mediaUrl] }),
+      });
       if (!response.ok) throw new Error("خطا در ارسال به سرور");
       const result = await response.json();
       console.log("درخواست با موفقیت ثبت شد:", result);
@@ -49,7 +103,9 @@ function Tabs() {
   const handleReset = () => {
     setShowForm(true);
     setTranscription(null);
+    setTranscription1(null);
     setMediaUrl("");
+    //setFile(null);
     setError(null);
   };
   // تبدیل فرمت زمان (ساعت:دقیقه:ثانیه:میلی‌ثانیه) به ثانیه
@@ -71,6 +127,19 @@ function Tabs() {
     const secs = Math.floor(seconds % 60);
     const mins = totalMinutes % 60; // فقط دقیقه رو می‌گیریم
     return `${mins < 10 ? "0" : ""}${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+  // فرمت متن زمان‌بندی‌شده
+  const getTimedText = () => {
+    if (!transcription1 || !transcription1.segments) return "";
+    return transcription1.segments
+      .filter((segment) => segment.text.trim() !== "")
+      .map(
+        (segment, index) =>
+          `${index + 1}\n${formatTime(convertToSeconds(segment.start))} --> ${formatTime(
+            convertToSeconds(segment.end)
+          )}\n${segment.text}\n`
+      )
+      .join("\n");
   };
   const [activeTab, setActiveTab] = useState(0);
   const [activeButton, setActiveButton] = useState(0);
@@ -162,7 +231,7 @@ function Tabs() {
           className="flex flex-col rounded-2xl p-8 items-center justify-center"
           style={{ direction: "rtl" }}
         >
-          <div className="rounded-full" style={{ backgroundColor: "#118AD3" }}>
+          <button className="rounded-full" style={{ backgroundColor: "#118AD3" }}>
             <svg
               width="62"
               height="62"
@@ -200,7 +269,7 @@ function Tabs() {
                 strokeLinejoin="round"
               />
             </svg>
-          </div>
+          </button>
           <p className="mt-2" style={{ textAlign: "center", color: "#626262" }}>
             برای بارگذاری فایل گفتاری (صوتی/تصویری)، دکمه را فشار دهید متن پیاده شده آن، در اینجا
             ظاهر می شود
@@ -362,8 +431,14 @@ function Tabs() {
                       />
                     </svg>
                   </button>
-                  <div className="px-2 py-2 mr-24">
-                    {/*{`px-2 py-2 ${activeButton === 1 ? "mr-14" : "mr-24"}`} */}
+                  <button
+                    className="px-2 py-2 mr-24"
+                    onClick={() =>
+                      activeButton === 0
+                        ? downloadText(transcription, "transcription.txt")
+                        : downloadText(getTimedText(), "timed_transcription.txt")
+                    }
+                  >
                     <svg
                       width="14"
                       height="15"
@@ -384,8 +459,15 @@ function Tabs() {
                         fill="#8F8F8F"
                       />
                     </svg>
-                  </div>
-                  <div className="mx-2 px-2 py-2">
+                  </button>
+                  <div
+                    className="mx-2 px-2 py-2"
+                    onClick={() =>
+                      activeButton === 0
+                        ? copyToClipboard(transcription)
+                        : copyToClipboard(getTimedText())
+                    }
+                  >
                     <svg
                       width="16"
                       height="18"
@@ -479,17 +561,19 @@ function Tabs() {
                         return (
                           <div
                             key={index}
-                            className="flex my-1 px-2 py-3 border-2 border-white rounded-2xl gap-2"
+                            className={`flex my-1 px-2 py-3 border-2 border-white rounded-2xl gap-2 ${
+                              index % 2 == 0 ? "activeseg" : "deactiveseg"
+                            }`}
                             style={{
                               fontFamily: "Vazir, sans-serif",
                               fontSize: "15px",
                               lineHeight: "1.5",
-                              backgroundColor: "#F2F2F2",
                             }}
                           >
                             <p>{formatTime(convertToSeconds(segment.start))}</p>
                             <p>{formatTime(convertToSeconds(segment.end))}</p>
                             <p>{segment.text}</p>
+                            <p>{index}</p>
                           </div>
                         );
                       })}

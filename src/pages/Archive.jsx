@@ -9,12 +9,9 @@ function Archive() {
     const fetchRequests = async () => {
       const token = "a85d08400c622b50b18b61e239b9903645297196"; // توکن از Postman
       try {
-        const response = await fetch(
-          "https://proxy.corsfix.com/?https://harf.roshan-ai.ir/api/requests/",
-          {
-            headers: { Authorization: `Token ${token}` },
-          }
-        );
+        const response = await fetch("api/requests/", {
+          headers: { Authorization: `Token ${token}` },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -23,7 +20,7 @@ function Archive() {
         setRequests(Array.isArray(data) ? data : data.results || []);
         //setRequests(data); // فرض می‌کنیم data شامل لیست درخواست‌هاست
         // مطمئن شو data یه آرایه هست
-        setRequests(Array.isArray(data) ? data : []);
+        setRequests(Array.isArray(data.results) ? data.results : Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("خطا در دریافت درخواست‌ها:", error);
         setRequests([]); // اگه خطا داد، آرایه خالی ست کن
@@ -39,7 +36,7 @@ function Archive() {
       </h2>
       <div className="flex flex-col  my-6" style={{ direction: "rtl" }}>
         <div className="flex mx-20">
-          <div className="mx-16 w-60">
+          <div className="mx-16 w-46">
             <p>نام فایل</p>
           </div>
           <div className="mx-5 w-24">
@@ -62,7 +59,7 @@ function Archive() {
               date={request.date || "تاریخ نامشخص"}
               type={request.type || "نوع ناشناس"}
               duration={request.duration || "مدت نامشخص"}
-              imageUrl={`/api/media_image/${request.media_url}`} // اصلاح آدرس تصویر
+              imageUrl={request.media_url ? `/api/media_image/${request.media_url}` : null} // اصلاح آدرس تصویر
             />
           ))
         )}
