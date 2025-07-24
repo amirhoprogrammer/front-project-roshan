@@ -28,52 +28,21 @@ const downloadText = (text, filename) => {
   URL.revokeObjectURL(url);
 };
 function Tabs() {
+  const imUrl = "../assets/upload.svg";
   const [mediaUrl, setMediaUrl] = useState("");
   const [transcription, setTranscription] = useState(null);
   const [transcription1, setTranscription1] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(true);
-  const [file, setFile] = useState(null); // برای ذخیره فایل انتخاب‌ شده
+  //const [file, setFile] = useState(null); // برای ذخیره فایل انتخاب‌ شده
 
-  // تابع آپلود فایل
-  /*const handleFileUpload = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      // فرض می‌کنیم endpoint آپلود فایل وجود دارد
-      const uploadResponse = await fetch("https://harf.roshan-ai.ir/api/upload/", {
-        method: "POST",
-        headers: {
-          Authorization: `Token a85d08400c622b50b18b61e239b9903645297196`,
-        },
-        body: formData,
-      });
-      if (!uploadResponse.ok) throw new Error("خطا در آپلود فایل");
-      const uploadResult = await uploadResponse.json();
-      return uploadResult.url; // فرض می‌کنیم سرور URL فایل آپلودشده را برمی‌گرداند
-    } catch (err) {
-      throw new Error(`خطا در آپلود فایل: ${err.message}`);
-    }
-  };*/
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    /*let url = mediaUrl;
-    if (file) {
-      try {
-        url = await handleFileUpload(file); // آپلود فایل و دریافت URL
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-        return;
-      }
-    }*/
     try {
       const data = await transcribeFiles([mediaUrl]);
-      //const data = await transcribeFiles([url]);
       const textSegments = data[0].segments
         .filter((segment) => segment.text.trim() !== "")
         .map((segment) => segment.text)
@@ -100,6 +69,7 @@ function Tabs() {
       setLoading(false);
     }
   };
+
   const handleReset = () => {
     setShowForm(true);
     setTranscription(null);
@@ -578,7 +548,6 @@ function Tabs() {
                         );
                       })}
                     </div>
-
                     {mediaUrl && <Audio src={mediaUrl} />}
                   </div>
                 )}
