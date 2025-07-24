@@ -5,7 +5,7 @@ import Guest from "./feathers/Guest";
 import Archive from "./pages/Archive.jsx";
 import Tabs from "./feathers/Tabs";
 import Language from "./feathers/Language";
-import Audio from "./feathersOfUpload/Audio";
+import Audio from "./audio & voice/Audio";
 import Transcribe from "./test/Transcribe";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";

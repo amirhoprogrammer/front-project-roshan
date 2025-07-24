@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { transcribeFiles } from "../services/Api";
-import Audio from "../feathersOfUpload/Audio";
+import Audio from "../audio & voice/Audio";
 import "@fontsource/vazir";
 // تابع برای کپی کردن متن به کلیپ‌بورد
 const copyToClipboard = (text) => {
