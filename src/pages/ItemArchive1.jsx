@@ -1,5 +1,5 @@
 import React from "react";
-function ItemArchive({ name, date, type, text, duration, imageUrl }) {
+function ItemArchive1({ name, date, type, text, duration, imageUrl }) {
   return (
     <div className="flex mx-20 my-2 p-2" style={{ direction: "rtl", borderRadius: "8px" }}>
       <div
@@ -163,4 +163,4 @@ function ItemArchive({ name, date, type, text, duration, imageUrl }) {
     </div>
   );
 }
-export default ItemArchive;
+export default ItemArchive1;

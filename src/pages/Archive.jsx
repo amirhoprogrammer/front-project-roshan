@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ItemArchive from "./ItemArchive";
+import ItemArchive1 from "./ItemArchive1";
+import ItemArchive from "../Archive/ItemArchive";
 import Guest from "../feathers/Guest";
 import "../App.css";
 function Archive() {

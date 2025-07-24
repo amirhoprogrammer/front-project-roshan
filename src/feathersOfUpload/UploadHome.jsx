@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import BasicText from "./BasicText";
-import TimeText from "./TimeText";
 import "./uploadhome.css";
 function UploadHome() {
   const [activeTab, setActiveTab] = useState(0);
@@ -156,8 +154,6 @@ function UploadHome() {
           <p className="mx-2">شروع دوباره</p>
         </button>
       </div>
-      {activeTab === 0 && <BasicText />}
-      {activeTab === 1 && <TimeText />}
     </div>
   );
 }
