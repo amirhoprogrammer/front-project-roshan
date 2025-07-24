@@ -5,7 +5,6 @@ import Guest from "./feathers/Guest";
 import Archive from "./pages/Archive.jsx";
 import Tabs from "./feathers/Tabs";
 import Language from "./feathers/Language";
-import UploadHome from "./feathersOfUpload/UploadHome";
 import Audio from "./feathersOfUpload/Audio";
 import Transcribe from "./test/Transcribe";
 import "./App.css";
@@ -20,7 +19,6 @@ function App() {
       <Route path="/guest" element={<Guest />} />
       <Route path="/tabs" element={<Tabs />} />
       <Route path="/language" element={<Language />} />
-      <Route path="/uploadhome" element={<UploadHome />} />
       <Route path="/audio" element={<Audio />} />
       <Route path="/transcribe" element={<Transcribe />} />
     </Routes>
