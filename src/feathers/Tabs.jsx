@@ -3,15 +3,25 @@ import { transcribeFiles } from "../services/Api";
 import Audio from "../audio & voice/Audio";
 import VoiceRecorder from "../audio & voice/VoiceRecorder";
 import "@fontsource/vazir";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 // تابع برای کپی کردن متن به کلیپ‌بورد
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(
     () => {
-      alert("متن با موفقیت کپی شد!");
+      //alert("متن با موفقیت کپی شد!");
+      toast.success("متن با موفقیت کپی شد!", {
+        position: "top-right",
+        autoClose: "3000",
+      });
     },
     (err) => {
       console.error("خطا در کپی کردن متن: ", err);
-      alert("خطا در کپی کردن متن!");
+      toast.error("خطا در کپی کردن متن!", {
+        position: "top-right",
+        autoClose: "3000",
+      });
+      //alert("خطا در کپی کردن متن!");
     }
   );
 };
@@ -1237,6 +1247,7 @@ function Tabs() {
             />
           ))
       )}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
