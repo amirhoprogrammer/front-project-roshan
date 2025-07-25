@@ -132,7 +132,7 @@ function Tabs() {
       setLoading(false);
     }
   };
-
+  //if (!segment.text.trim()) return null; // نادیده گرفتن segment‌های خالی
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -453,7 +453,6 @@ function Tabs() {
                       }}
                     >
                       {transcription1.segments.map((segment, index) => {
-                        if (!segment.text.trim()) return null;
                         return (
                           <div
                             key={index}
@@ -468,8 +467,7 @@ function Tabs() {
                           >
                             <p>{formatTime(convertToSeconds(segment.start))}</p>
                             <p>{formatTime(convertToSeconds(segment.end))}</p>
-                            <p>{segment.text}</p>
-                            <p>{index}</p>
+                            <p>{segment.text.trim() ? segment.text : "موسیقی"}</p>
                           </div>
                         );
                       })}
@@ -792,7 +790,6 @@ function Tabs() {
                       }}
                     >
                       {transcription1.segments.map((segment, index) => {
-                        if (!segment.text.trim()) return null;
                         return (
                           <div
                             key={index}
@@ -807,8 +804,7 @@ function Tabs() {
                           >
                             <p>{formatTime(convertToSeconds(segment.start))}</p>
                             <p>{formatTime(convertToSeconds(segment.end))}</p>
-                            <p>{segment.text}</p>
-                            <p>{index}</p>
+                            <p>{segment.text.trim() ? segment.text : "موسیقی"}</p>
                           </div>
                         );
                       })}
@@ -1109,7 +1105,6 @@ function Tabs() {
                       }}
                     >
                       {transcription1.segments.map((segment, index) => {
-                        if (!segment.text.trim()) return null; // نادیده گرفتن segment‌های خالی
                         return (
                           <div
                             key={index}
@@ -1124,8 +1119,7 @@ function Tabs() {
                           >
                             <p>{formatTime(convertToSeconds(segment.start))}</p>
                             <p>{formatTime(convertToSeconds(segment.end))}</p>
-                            <p>{segment.text}</p>
-                            <p>{index}</p>
+                            <p>{segment.text.trim() ? segment.text : "موسیقی"}</p>
                           </div>
                         );
                       })}
