@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(
     () => {
-      //alert("متن با موفقیت کپی شد!");
       toast.success("متن با موفقیت کپی شد!", {
         position: "top-right",
         autoClose: "3000",
@@ -21,7 +20,6 @@ const copyToClipboard = (text) => {
         position: "top-right",
         autoClose: "3000",
       });
-      //alert("خطا در کپی کردن متن!");
     }
   );
 };
@@ -86,7 +84,7 @@ function Tabs() {
       setLoading(false);
     }
   };
-  //for uploaf file part
+  //for upload file part
   const [uploadedFile, setUploadedFile] = useState(null);
   //check type of file that user upload it
   const handleFileUpload = (event) => {
