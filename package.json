@@ -23,6 +23,7 @@
     "react-select": "^5.10.2",
     "react-tabs": "^6.1.0",
     "react-toastify": "^11.0.5",
+    "react-tooltip": "^5.29.1",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {

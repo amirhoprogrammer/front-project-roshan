@@ -4,6 +4,8 @@ import axios from "axios";
 import Guest from "../feathers/Guest";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 // تابع برای کپی کردن متن به کلیپ‌بورد
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(
@@ -36,9 +38,21 @@ const downloadText = (text, filename) => {
   URL.revokeObjectURL(url);
 };
 
-// تابع برای دانلود متن به‌صورت فایل
+// تابع برای دانلود فایل صوتی
+const downloadVoice = (url, filename) => {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename || "audio_file"; // اگر filename مشخص نبود، نام پیش‌فرض
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+// تابع برای دانلود متن به‌صورت ورد
 const downloadWord = (text, filename) => {
-  const blob = new Blob([text], { type: "docx" });
+  const blob = new Blob([text], {
+    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -53,6 +67,7 @@ function Archive() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fileSizes, setFileSizes] = useState({}); // برای ذخیره حجم فایل‌ها
 
   // تبدیل فرمت زمان (ساعت:دقیقه:ثانیه:میلی‌ثانیه) به ثانیه
   const convertToSeconds = (timeStr) => {
@@ -158,15 +173,15 @@ function Archive() {
         <div className="my-2">
           {requests.map((request, index) => {
             const transcriptText = getFullTranscript(request.segments || []);
-
+            const requestType = getRequestType(request);
             return (
               <div
                 key={index} // اگه درخواست‌ها شناسه منحصربه‌فرد دارن، از request.id استفاده کن
                 className="flex flex-col p-4 bg-white rounded-lg shadow-md hover:bg-gray-50 transition"
               >
                 <div className="flex mb-2">
-                  {getRequestType(request) === "ضبط صدا" && (
-                    <div className="flex mx-2">
+                  {requestType === "ضبط صدا" && (
+                    <div className="flex mx-2 rounded-full" style={{ backgroundColor: "#00B3A1" }}>
                       <svg
                         width="20"
                         height="34"
@@ -182,8 +197,8 @@ function Archive() {
                       </svg>
                     </div>
                   )}
-                  {getRequestType(request) === "آپلود فایل" && (
-                    <div className="flex mx-2">
+                  {requestType === "آپلود فایل" && (
+                    <div className="flex mx-2 rounded-full" style={{ backgroundColor: "#118AD3" }}>
                       <svg
                         width="62"
                         height="62"
@@ -223,8 +238,8 @@ function Archive() {
                       </svg>
                     </div>
                   )}
-                  {getRequestType(request) === "ارسال لینک" && (
-                    <div className="flex mx-2">
+                  {requestType === "ارسال لینک" && (
+                    <div className="flex mx-2 rounded-full" style={{ backgroundColor: "#FF1654" }}>
                       <svg
                         width="14"
                         height="16"
@@ -259,7 +274,13 @@ function Archive() {
                   <p className="flex mr-24 ml-10">
                     {formatTime(convertToSeconds(request.duration))}
                   </p>
-                  <div className="mx-2" id="download">
+                  <div
+                    className="mx-2"
+                    id="download"
+                    data-tooltip-id={`tooltip-${index}`}
+                    data-tooltip-content={fileSizes[request.url] || "در حال محاسبه..."}
+                    onClick={() => downloadVoice(request.url, formatName(request.url))}
+                  >
                     <svg
                       width="14"
                       height="15"
@@ -280,6 +301,7 @@ function Archive() {
                         fill="#8F8F8F"
                       />
                     </svg>
+                    <Tooltip id={`tooltip-${index}`} />
                   </div>
                   <div
                     className="mx-2"
