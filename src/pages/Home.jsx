@@ -1,6 +1,7 @@
 import ChangeTheVoice from "./ChangeTheVoice";
 import Archive from "./Archive";
 import React, { useEffect, useState } from "react";
+import "react-tooltip/dist/react-tooltip.css";
 function Home() {
   const [activeButton, setActiveButton] = useState(0);
   return (

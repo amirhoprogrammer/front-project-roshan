@@ -10,6 +10,7 @@ import VoiceRecoder from "./audio & voice/VoiceRecorder";
 import Transcribe from "./test/Transcribe";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import "react-tooltip/dist/react-tooltip.css";
 
 function App() {
   return (
