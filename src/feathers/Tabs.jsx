@@ -230,7 +230,7 @@ function Tabs() {
       content: (
         <div
           className={`flex flex-col rounded-2xl ${
-            transcription ? "p-0 m-0" : "m-20 p-8 items-center justify-center"
+            transcription ? "p-0 m-0" : "m-16 p-8 items-center justify-center"
           }`}
           style={{ direction: "rtl" }}
         >
@@ -239,7 +239,7 @@ function Tabs() {
               <VoiceRecorder onRecordingComplete={handleRecordingComplete} />
               {recordedAudioBlob && !transcription && (
                 <button
-                  className="mt-4 rounded-full px-4 py-2"
+                  className="rounded-full px-4 py-2  mt-0"
                   style={{ backgroundColor: "#118AD3" }}
                   onClick={handleTranscribe}
                   disabled={loading}
@@ -479,7 +479,10 @@ function Tabs() {
             </div>
           )}
           {!transcription && (
-            <p className="mt-2 mx-15" style={{ textAlign: "center", color: "#626262" }}>
+            <p
+              className={`mx-15 ${!transcription ? "mt-0" : "mt-2"}`}
+              style={{ textAlign: "center", color: "#626262" }}
+            >
               برای شروع به صحبت، دکمه را فشار دهید متن پیاده شده آن، در اینجا ظاهر شود
             </p>
           )}
