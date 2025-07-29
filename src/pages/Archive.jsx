@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { useSelector, useDispatch } from "react-redux";
+import { setTimedText } from "../redux/timedTextSlice";
 
 // تابع برای کپی کردن متن به کلیپ‌بورد
 const copyToClipboard = (text) => {
@@ -91,19 +93,12 @@ function Archive() {
   const [error, setError] = useState(null);
   const [fileSizes, setFileSizes] = useState({}); // برای ذخیره حجم فایل‌ها
   const [activeDiv, setActiveDiv] = useState(0); // اگر کلیک روی div ها بیاید متنش رو نمایش بده
-  const [isTimedText, setIsTimedText] = useState(false); // برای جابه‌جایی بین متن ساده و زمان‌بندی‌شده
   //for upload file part
   const [uploadedFile, setUploadedFile] = useState(null);
 
-  const handleReset = () => {
-    setShowForm(true);
-    setTranscription(null);
-    setTranscription1(null);
-    setMediaUrl("");
-    //setFile(null);
-    setRecordedAudioBlob(null); //reset the recorded voice
-    setError(null);
-  };
+  // استفاده از Redux برای isTimedText
+  const isTimedText = useSelector((state) => state.timedText.isTimedText);
+  const dispatch = useDispatch();
 
   // فرمت متن زمان‌بندی‌شده
   const getTimedText = (request) => {
@@ -203,20 +198,6 @@ function Archive() {
           }
         }
         setFileSizes(sizes);
-        /*setRequests(response.data.results || [response.data]); // فرض می‌کنیم response.data.results آرایه درخواست‌هاست، یا مستقیم object اصلی
-        // گرفتن حجم فایل‌ها به صورت موازی
-        const sizePromises = requests.map(async (request) => {
-          if (request.url) {
-            return { url: request.url, size: await getFileSize(request.url) };
-          }
-          return { url: request.url, size: "نامشخص" };
-        });
-        const sizesArray = await Promise.all(sizePromises);
-        const sizes = sizesArray.reduce((acc, { url, size }) => {
-          acc[url] = size;
-          return acc;
-        }, {});
-        setFileSizes(sizes);*/
       } catch (err) {
         setError("خطا در بارگذاری لیست درخواست‌ها");
         console.error(err);
@@ -255,6 +236,7 @@ function Archive() {
         <div className="my-2">
           {requests.map((request, index) => {
             const transcriptText = getFullTranscript(request.segments || []);
+            const timedText = getTimedText(request);
             const requestType = getRequestType(request);
             return (
               <div
@@ -345,7 +327,6 @@ function Archive() {
                       </svg>
                     </div>
                   )}
-                  {/*<p className="flex mx-2">{getRequestType(request)}</p>*/}
                   <p className="flex mx-5 w-72 overflow-x-auto p-0" style={{ direction: "ltr" }}>
                     {formatName(request.url)}
                   </p>
@@ -497,7 +478,10 @@ function Archive() {
                         className={`flex flex-row-reverse mx-0 my-0 py-0 gap-1 px-2 ${
                           isTimedText ? "border-b-2" : ""
                         }`}
-                        onClick={() => setIsTimedText(false)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(setTimedText(false));
+                        }}
                       >
                         <p>متن ساده</p>
                         <svg
@@ -538,7 +522,10 @@ function Archive() {
                         className={`flex flex-row-reverse mx-2 my-0 py-0 gap-1 px-2 ${
                           isTimedText ? "border-b-2" : ""
                         }`}
-                        onClick={() => setIsTimedText(true)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(setTimedText(true));
+                        }}
                       >
                         <p>متن زمان بندی شده</p>
                         <svg

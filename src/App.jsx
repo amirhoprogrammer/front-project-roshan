@@ -7,7 +7,6 @@ import Tabs from "./feathers/Tabs";
 import Language from "./feathers/Language";
 import Audio from "./audio & voice/Audio";
 import VoiceRecoder from "./audio & voice/VoiceRecorder";
-import Transcribe from "./test/Transcribe";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import "react-tooltip/dist/react-tooltip.css";
@@ -23,7 +22,6 @@ function App() {
       <Route path="/language" element={<Language />} />
       <Route path="/audio" element={<Audio />} />
       <Route path="/voicerecorder" element={<VoiceRecoder />} />
-      <Route path="/transcribe" element={<Transcribe />} />
     </Routes>
   );
 }
