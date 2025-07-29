@@ -1,23 +1,23 @@
 # Use the latest LTS version of Node.js
-#FROM node:24.4.0-alpine
+FROM node:24.4.0-alpine
  
 # Set the working directory inside the container
-#WORKDIR /app
+WORKDIR /app
  
 # Copy package.json and package-lock.json
-#COPY package*.json ./
+COPY package*.json ./
  
 # Install dependencies
-#RUN npm install
+RUN npm install
  
 # Copy the rest of your application files
-#COPY . .
+COPY . .
  
 # Expose the port your app runs on
-#EXPOSE 3000
+EXPOSE 3000
  
 # Define the command to run your app
-#CMD ["npm", "run" , "dev"]
+CMD ["npm", "run" , "dev"]
 
 #production
 #FROM node:24.4.0-alpine AS build
@@ -34,27 +34,27 @@
 #EXPOSE 3000
 #CMD ["serve", "-s", "dist", "-l", "3000"]
 # Stage 1: Build the application
-FROM node:24-alpine AS builder
+#FROM node:24-alpine AS builder
 
-WORKDIR /app
+#WORKDIR /app
 
-COPY package*.json ./
+#COPY package*.json ./
 
-RUN npm install
+#RUN npm install
 
-COPY . .
+#COPY . .
 
-RUN npm run build
+#RUN npm run build
 
 # Stage 2: Serve the application
-FROM node:24-alpine AS server
+#FROM node:24-alpine AS server
 
-WORKDIR /app
+#WORKDIR /app
 
-RUN npm install -g serve
+#RUN npm install -g serve
 
-COPY --from=builder /app/dist .
+#COPY --from=builder /app/dist .
 
-EXPOSE 3000
+#EXPOSE 3000
 
-CMD ["serve", "-s", ".", "-l", "3000"]
+#CMD ["serve", "-s", ".", "-l", "3000"]
