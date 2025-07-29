@@ -47,7 +47,7 @@
           </button>
           <button
             className={`flex flex-row-reverse mx-2 my-0 py-0 gap-1 px-2 ${
-              activeButton === 1 ? "border-b-2 " : ""
+              activeButton === 1 ? "border-b-2" : ""
             }`}
             style={{ direction: "rtl" }}
             onClick={() => setActiveButton(1)}

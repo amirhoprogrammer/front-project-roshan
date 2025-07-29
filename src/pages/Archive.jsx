@@ -106,9 +106,9 @@ function Archive() {
   };
 
   // فرمت متن زمان‌بندی‌شده
-  const getTimedText = () => {
-    if (!transcription1 || !transcription1.segments) return "";
-    return transcription1.segments
+  const getTimedText = (request) => {
+    if (!request || !request.segments) return "";
+    return request.segments
       .filter((segment) => segment.text.trim() !== "")
       .map(
         (segment, index) =>
