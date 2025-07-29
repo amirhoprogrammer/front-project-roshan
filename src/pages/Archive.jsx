@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { transcribeFiles } from "../services/Api";
+import { transcribeFiles } from "../services/api";
 import axios from "axios";
 import Guest from "../feathers/Guest";
 import Audio from "../audio & voice/Audio";
@@ -11,6 +11,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { useSelector, useDispatch } from "react-redux";
 import { setTimedText } from "../redux/timedTextSlice";
+import "../App.css";
 
 // تابع برای کپی کردن متن به کلیپ‌بورد
 const copyToClipboard = (text) => {
@@ -102,16 +103,34 @@ function Archive() {
 
   // فرمت متن زمان‌بندی‌شده
   const getTimedText = (request) => {
-    if (!request || !request.segments) return "";
+    if (!request.segments || !Array.isArray(request.segments)) return null;
+    return request.segments.map((segment, index) => (
+      <div
+        key={index}
+        className={`flex my-1 px-2 py-3 border-2 border-white rounded-2xl gap-2 ${
+          index % 2 === 0 ? "activeseg" : "deactiveseg"
+        }`}
+        style={{
+          fontFamily: "Vazir, sans-serif",
+          fontSize: "15px",
+          lineHeight: "1.5",
+        }}
+      >
+        <p>{formatTime(convertToSeconds(segment.start))}</p>
+        <p>{formatTime(convertToSeconds(segment.end))}</p>
+        <p>{segment.text.trim() ? segment.text : "موسیقی"}</p>
+      </div>
+    ));
+    /*if (!request || !request.segments) return "";
     return request.segments
       .filter((segment) => segment.text.trim() !== "")
       .map(
         (segment, index) =>
-          `${index + 1}\n${formatTime(convertToSeconds(segment.start))} --> ${formatTime(
+          ${formatTime(convertToSeconds(segment.start))} ${formatTime(
             convertToSeconds(segment.end)
-          )}\n${segment.text}\n`
+          )}\n${segment.text}\n
       )
-      .join("\n");
+      .join("\n");*/
   };
   // تبدیل فرمت زمان (ساعت:دقیقه:ثانیه:میلی‌ثانیه) به ثانیه
   const convertToSeconds = (timeStr) => {
@@ -476,7 +495,7 @@ function Archive() {
                     <div className="flex  flex-row  my-0 p-0" style={{ direction: "rtl" }}>
                       <button
                         className={`flex flex-row-reverse mx-0 my-0 py-0 gap-1 px-2 ${
-                          isTimedText ? "border-b-2" : ""
+                          !isTimedText ? "border-b-2 border-b-black" : "border-b-0"
                         }`}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -520,7 +539,7 @@ function Archive() {
                       </button>
                       <button
                         className={`flex flex-row-reverse mx-2 my-0 py-0 gap-1 px-2 ${
-                          isTimedText ? "border-b-2" : ""
+                          isTimedText ? "border-b-2 border-b-black" : "border-b-0"
                         }`}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -556,14 +575,11 @@ function Archive() {
                         fontFamily: "Vazir",
                         fontSize: "15px",
                         lineHeight: "1.5",
+                        direction: "rtl",
                       }}
                     >
                       {isTimedText ? (
-                        timedText.split("\n").map((line, i) => (
-                          <p key={i} className="text-right">
-                            {line}
-                          </p>
-                        ))
+                        timedText
                       ) : (
                         <p className="text-right">{transcriptText || "متن خالی"}</p>
                       )}
@@ -571,30 +587,6 @@ function Archive() {
                     <Audio url={request.url} />
                   </div>
                 )}
-                {/*<div className="overflow-y-auto max-h-40">
-                {request.segments
-                  .filter((segment) => segment.text.trim() !== "")
-                  .map((segment, segIndex) => (
-                    <div
-                      key={segIndex}
-                      className="flex items-center justify-between py-2 border-b border-gray-200 last:border-b-0"
-                    >
-                      <p className="text-sm">
-                        {segment.start} - {segment.end}: {segment.text}
-                      </p>
-                    </div>
-                  ))}
-                  </div>*/}
-
-                {/*<div className="mt-2 text-sm text-gray-500">
-                <p>کلمات: {request.stats?.words || 0}</p>
-                <button
-                  className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  onClick={() => alert(`جزئیات درخواست ${index + 1}`)}
-                >
-                  مشاهده
-                </button>
-                </div>*/}
               </div>
             );
           })}

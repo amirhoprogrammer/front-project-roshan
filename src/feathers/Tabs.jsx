@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { transcribeFiles } from "../services/Api";
+import { transcribeFiles } from "../services/api";
 import Audio from "../audio & voice/Audio";
 import VoiceRecorder from "../audio & voice/VoiceRecorder";
 import "@fontsource/vazir";
