@@ -159,12 +159,18 @@ function Archive() {
 
   //function for sign of name
   const formatName = (linkUrl) => {
-    if (linkUrl.slice(0, 52) === "https://as-v2.tamasha.com/statics/videos_file/e4/e4/") {
-      const linkF = linkUrl.slice(52, linkUrl.length - 1);
-      return linkF;
-    } else if (linkUrl.slice(0, 38) === "http://harf.roshan-ai.ir/media/files/") {
-      const linkM = linkUrl.slice(38, linkUrl.length - 1);
-      return linkM;
+    if (linkUrl.slice(0, 37) === "http://harf.roshan-ai.ir/media/files/") {
+      const linkM = linkUrl.split("").reverse().join("");
+      const linkMe = linkM.split("/", 1);
+      const linkMedia = linkMe[0].split("").reverse().join("");
+      if (linkMedia.length > 20) return linkMedia.slice(0, 20) + "...";
+    } else if (linkUrl.slice(0, 52) === "https://as-v2.tamasha.com/statics/videos_file/e4/e4/") {
+      const linkF = linkUrl.split("").reverse().join("");
+      const linkFi = linkF.split("/", 1);
+      const linkFile = linkFi[0].split("").reverse().join("");
+      if (linkFile.length > 20) return linkFile.slice(0, 20) + "...";
+    } else if (linkUrl.length > 30) {
+      return linkUrl.slice(0, 30) + "...";
     } else {
       return linkUrl;
     }
@@ -253,7 +259,8 @@ function Archive() {
             return (
               <div
                 key={index} // اگه درخواست‌ها شناسه منحصربه‌فرد دارن، از request.id استفاده کن
-                className="flex flex-col p-4 bg-white rounded-lg shadow-md hover:bg-gray-50 transition"
+                className="flex flex-col p-4 bg-white rounded-lg hover:bg-gray-50 transition"
+                onClick={() => setActiveDiv(activeDiv === index ? null : index)}
               >
                 <div className="flex mb-2">
                   {requestType === "ضبط صدا" && (
@@ -339,7 +346,7 @@ function Archive() {
                     </div>
                   )}
                   {/*<p className="flex mx-2">{getRequestType(request)}</p>*/}
-                  <p className="flex mx-5 w-80 overflow-x-auto p-0" style={{ direction: "ltr" }}>
+                  <p className="flex mx-5 w-72 overflow-x-auto p-0" style={{ direction: "ltr" }}>
                     {formatName(request.url)}
                   </p>
                   <p className="text-sm text-gray-600 mx-20">
@@ -355,7 +362,10 @@ function Archive() {
                     id="download"
                     data-tooltip-id={`tooltip-${index}`}
                     data-tooltip-content={fileSizes[request.url] || "در حال محاسبه..."}
-                    onClick={() => downloadVoice(request.url, formatName(request.url))}
+                    onClick={(e) => {
+                      e.stopPropagation(); // جلوگیری از فعال شدن کلیک والد
+                      downloadVoice(request.url, formatName(request.url));
+                    }}
                   >
                     <svg
                       width="14"
@@ -385,7 +395,10 @@ function Archive() {
                   <div
                     className="mx-2"
                     id="download-word"
-                    onClick={() => downloadWord(transcriptText, "transcription.docx")}
+                    onClick={(e) => {
+                      e.stopPropagation(); // جلوگیری از فعال شدن کلیک والد
+                      downloadWord(transcriptText, "transcription.docx");
+                    }}
                   >
                     <svg
                       width="13"
@@ -407,7 +420,10 @@ function Archive() {
                   <div
                     className="mx-2"
                     id="copy"
-                    onClick={() => copyToClipboard(transcriptText || "متن خالی")}
+                    onClick={(e) => {
+                      e.stopPropagation(); // جلوگیری از فعال شدن کلیک والد
+                      copyToClipboard(transcriptText || "متن خالی");
+                    }}
                   >
                     <svg
                       width="16"
@@ -475,27 +491,79 @@ function Archive() {
                   </div>
                 </div>
                 {activeDiv === index && (
-                  <div className="mt-4">
-                    <div className="flex justify-between mb-2">
+                  <div className="mt-4 flex flex-col p-16">
+                    <div className="flex  flex-row  my-0 p-0" style={{ direction: "rtl" }}>
                       <button
-                        className={`px-4 py-2 rounded ${
-                          isTimedText ? "bg-gray-200" : "bg-blue-500 text-white"
+                        className={`flex flex-row-reverse mx-0 my-0 py-0 gap-1 px-2 ${
+                          isTimedText ? "border-b-2" : ""
                         }`}
                         onClick={() => setIsTimedText(false)}
                       >
-                        متن ساده
+                        <p>متن ساده</p>
+                        <svg
+                          width="17"
+                          height="17"
+                          viewBox="0 0 17 17"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="my-2"
+                        >
+                          <path
+                            d="M1.47821 3.69568H15.7065"
+                            stroke="black"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M5.35858 6.92932H15.7064"
+                            stroke="black"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M1.47821 10.163H15.7065"
+                            stroke="black"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M5.35858 13.3967H15.7064"
+                            stroke="black"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
                       </button>
                       <button
-                        className={`px-4 py-2 rounded ${
-                          isTimedText ? "bg-blue-500 text-white" : "bg-gray-200"
+                        className={`flex flex-row-reverse mx-2 my-0 py-0 gap-1 px-2 ${
+                          isTimedText ? "border-b-2" : ""
                         }`}
                         onClick={() => setIsTimedText(true)}
                       >
-                        متن زمان‌بندی‌شده
+                        <p>متن زمان بندی شده</p>
+                        <svg
+                          width="17"
+                          height="17"
+                          viewBox="0 0 17 17"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="my-2"
+                        >
+                          <path
+                            d="M8.50001 16.8125C6.27938 16.8125 4.19235 15.948 2.62248 14.3775C0.0562897 11.8119 -0.553491 7.92109 1.10604 4.69703C1.25626 4.4055 1.6137 4.29091 1.90582 4.44053C2.19795 4.59016 2.31254 4.94819 2.16232 5.24031C0.739696 8.00362 1.2622 11.3381 3.46204 13.538C4.80748 14.884 6.59645 15.625 8.50001 15.625C10.403 15.625 12.1925 14.884 13.538 13.538C14.8834 12.1919 15.625 10.403 15.625 8.5C15.625 6.59644 14.884 4.80747 13.538 3.46203C12.1919 2.11659 10.4036 1.375 8.50001 1.375C6.59645 1.375 4.80748 2.11659 3.46204 3.46203C3.22988 3.69419 2.85463 3.69419 2.62248 3.46203C2.39032 3.22987 2.39032 2.85462 2.62248 2.62247C4.19235 1.05259 6.27938 0.1875 8.50001 0.1875C10.7206 0.1875 12.8083 1.05259 14.3775 2.62247C15.948 4.19234 16.8125 6.27938 16.8125 8.5C16.8125 10.72 15.948 12.8077 14.3775 14.3775C12.8083 15.948 10.7206 16.8125 8.50001 16.8125Z"
+                            fill="black"
+                            fillOpacity="0.6"
+                          />
+                          <path
+                            d="M11.4682 11.4688C11.3381 11.4688 11.2075 11.4266 11.0977 11.3387L8.12891 8.96372C7.98819 8.85091 7.90625 8.6805 7.90625 8.5V3.75C7.90625 3.42225 8.17225 3.15625 8.5 3.15625C8.82775 3.15625 9.09375 3.42225 9.09375 3.75V8.215L11.8398 10.4113C12.0957 10.6167 12.1373 10.9902 11.9325 11.2461C11.8149 11.3922 11.6427 11.4688 11.4682 11.4688Z"
+                            fill="black"
+                            fillOpacity="0.6"
+                          />
+                        </svg>
                       </button>
                     </div>
                     <div
-                      className="p-4 bg-gray-100 rounded-lg overflow-y-auto"
+                      className="p-4 rounded-lg overflow-y-auto"
                       style={{
                         maxHeight: "160px",
                         fontFamily: "Vazir",
@@ -514,33 +582,6 @@ function Archive() {
                       )}
                     </div>
                     <Audio url={request.url} />
-                    <div className="flex justify-between mt-2">
-                      <button
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        onClick={() =>
-                          copyToClipboard(isTimedText ? timedText : transcriptText || "متن خالی")
-                        }
-                      >
-                        کپی متن
-                      </button>
-                      <button
-                        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                        onClick={() =>
-                          downloadWord(
-                            isTimedText ? timedText : transcriptText || "متن خالی",
-                            `transcription_${index + 1}.txt`
-                          )
-                        }
-                      >
-                        دانلود متن
-                      </button>
-                      <button
-                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                        onClick={() => setActiveDiv(null)}
-                      >
-                        بستن
-                      </button>
-                    </div>
                   </div>
                 )}
                 {/*<div className="overflow-y-auto max-h-40">
