@@ -121,16 +121,6 @@ function Archive() {
         <p>{segment.text.trim() ? segment.text : "موسیقی"}</p>
       </div>
     ));
-    /*if (!request || !request.segments) return "";
-    return request.segments
-      .filter((segment) => segment.text.trim() !== "")
-      .map(
-        (segment, index) =>
-          ${formatTime(convertToSeconds(segment.start))} ${formatTime(
-            convertToSeconds(segment.end)
-          )}\n${segment.text}\n
-      )
-      .join("\n");*/
   };
   // تبدیل فرمت زمان (ساعت:دقیقه:ثانیه:میلی‌ثانیه) به ثانیه
   const convertToSeconds = (timeStr) => {
@@ -196,6 +186,29 @@ function Archive() {
     const formatFile1 = format[0].split("").reverse().join("");
     return formatFile1;
   }
+
+  // تابع برای حذف درخواست
+  const deleteRequest = async (requestId) => {
+    try {
+      await axios.delete(`https://harf.roshan-ai.ir/api/requests/${requestId}/`, {
+        headers: {
+          Authorization: `Token a85d08400c622b50b18b61e239b9903645297196`,
+        },
+      });
+      // به‌روزرسانی لیست درخواست‌ها با حذف درخواست مربوطه
+      setRequests(requests.filter((req) => req.id !== requestId));
+      toast.success("درخواست با موفقیت حذف شد!", {
+        position: "top-right",
+        autoClose: "3000",
+      });
+    } catch (err) {
+      console.error("خطا در حذف درخواست: ", err);
+      toast.error("خطا در حذف درخواست!", {
+        position: "top-right",
+        autoClose: "3000",
+      });
+    }
+  };
   const token = "a85d08400c622b50b18b61e239b9903645297196";
 
   useEffect(() => {
@@ -442,7 +455,20 @@ function Archive() {
                       />
                     </svg>
                   </div>
-                  <div className="mx-2" id="delete">
+                  <div
+                    className="mx-2"
+                    id="delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (request.id) {
+                        if (
+                          window.confirm("آیا مطمئن هستید که می‌خواهید این درخواست را حذف کنید؟")
+                        ) {
+                          deleteRequest(request.id);
+                        }
+                      }
+                    }}
+                  >
                     <svg
                       width="11"
                       height="16"
