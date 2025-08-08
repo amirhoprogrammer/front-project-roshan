@@ -51,11 +51,8 @@ https://www.figma.com/file/zMgepw1CI8fRGx7aX1BS8S/Goftar?type=design&node-id=0-1
 ## نحوه تحویل هر چالش
 1. ساخت یک ریپازیتوری GitHub برای پروژه.
 2. ایجاد Branch مجزا برای هر چالش و مرج به Main پس از اتمام.
-
-
+3. دیپلوی پروژه با Github Pages.
+4. تکمیل فرم گوگل تحویل پروژه:
+https://forms.gle/kMqfpmavfrE4BjWy8
 
 ## توضیحات کد
-
-4. دیپلوی پروژه با Github Pages.
-5. تکمیل فرم گوگل تحویل پروژه:
-https://forms.gle/kMqfpmavfrE4BjWy8
