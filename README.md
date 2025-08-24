@@ -56,3 +56,11 @@ https://www.figma.com/file/zMgepw1CI8fRGx7aX1BS8S/Goftar?type=design&node-id=0-1
 https://forms.gle/kMqfpmavfrE4BjWy8
 
 ## توضیحات کد
+- دارای دو بخش تبدیل گفتار و آرشیو است.
+- این بخش تبدیل گفتار است.
+-![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
+-![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
+![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
+![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
+![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
+![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
