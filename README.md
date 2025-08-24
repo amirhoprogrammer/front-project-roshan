@@ -58,9 +58,28 @@ https://forms.gle/kMqfpmavfrE4BjWy8
 ## توضیحات کد
 - دارای دو بخش تبدیل گفتار و آرشیو است.
 - این بخش تبدیل گفتار است.
--![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
--![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
-![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
-![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
-![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
-![Alt text](https://raw.githubusercontent.com/amirhoprogrammer/front-project- roshan/main/image%20of%20project/image1.png)
+- 
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image1.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image2.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image3.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image4.png)
+- وقتی لینک دانلود فایل را ارسال کرده با زدن دکمه لینک کنار آن input می توان تبدیل به متن شده آن را تماشا کرد
+- و به دو صورت متن ساده و متن زمان بندی شده نمایش می دهد که می توان صدا آن را پخش کرد حجم صدا پخش را تغییر داد، pause کرد و دوباره از همان جا پخش کند یا از اول پخش کند و در هردو حالت هم فایل صوتی و هم متن آن را می توان دانلود کرد
+- 
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image5.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image6.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image11.png)
+- می تواند حتی صدا هم ضبط کند
+- 
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image1.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image7.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image8.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image9.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image10.png)
+- می توانی خود فایل هم آپلود کنی که محدودیت حجم دارد
+- 
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image2.png)
+- بخش آرشیو آن به این شرح است نوع فایل، اسم فایل، فرمت فایل، مدت زمان، و اگر روی آیکون دانلود هاور بگیری حجم فایل را می بینی بعد می توان متن آن فایل دانلود یا کپی و می توان کلا از بخش آرشیو آن فایل را حذف کرد و اگر روی هرکدام از فایل ها کلیک کنید فایل تبدیل به متن شده آن را میبینید.
+- 
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image12.png)
+![Alt text](https://github.com/amirhoprogrammer/front-project-roshan/blob/main/image%20of%20project/image13.png)
